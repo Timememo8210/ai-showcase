@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My AI Journey | 我的AI实践之路</title>
+<style>
+  :root {
+    --bg: #f8f9fc;
+    --card: #ffffff;
+    --accent: #4f6df5;
+    --accent-light: #e8ecff;
+    --text: #2d3748;
+    --text-secondary: #64748b;
+    --border: #e2e8f0;
+    --shadow: 0 2px 12px rgba(0,0,0,0.06);
+    --radius: 12px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 2rem; height: 56px;
+  }
+  nav .logo { font-weight: 700; font-size: 1.1rem; color: var(--accent); }
+  nav .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+  nav a { text-decoration: none; color: var(--text-secondary); font-size: 0.9rem; transition: color .2s; }
+  nav a:hover { color: var(--accent); }
+  .lang-btn {
+    background: var(--accent-light); color: var(--accent);
+    border: none; padding: 4px 14px; border-radius: 20px;
+    font-size: 0.85rem; cursor: pointer; font-weight: 600;
+    transition: all .2s;
+  }
+  .lang-btn:hover { background: var(--accent); color: #fff; }
+
+  /* HERO */
+  .hero {
+    max-width: 800px; margin: 0 auto;
+    padding: 4rem 2rem 2rem;
+    text-align: center;
+  }
+  .hero h1 { font-size: 2.2rem; font-weight: 800; margin-bottom: 0.8rem; }
+  .hero .subtitle { font-size: 1.1rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto; }
+  .hero .badge {
+    display: inline-block; margin-top: 1.2rem;
+    background: var(--accent-light); color: var(--accent);
+    padding: 6px 18px; border-radius: 20px; font-size: 0.85rem; font-weight: 600;
+  }
+
+  /* SECTION */
+  .container { max-width: 800px; margin: 0 auto; padding: 0 2rem; }
+  .section { margin-bottom: 3rem; }
+  .section-title {
+    font-size: 1.4rem; font-weight: 700; margin-bottom: 1.2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--accent-light);
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .section-icon { font-size: 1.3rem; }
+
+  /* TIMELINE */
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before {
+    content: ''; position: absolute; left: 7px; top: 0; bottom: 0;
+    width: 2px; background: var(--accent-light);
+  }
+  .timeline-item { position: relative; margin-bottom: 1.5rem; }
+  .timeline-dot {
+    position: absolute; left: -2rem; top: 6px;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--accent); border: 3px solid var(--accent-light);
+  }
+  .timeline-date {
+    font-size: 0.8rem; color: var(--accent); font-weight: 600;
+    margin-bottom: 0.3rem;
+  }
+
+  /* CARD */
+  .card {
+    background: var(--card); border-radius: var(--radius);
+    box-shadow: var(--shadow); padding: 1.5rem;
+    border: 1px solid var(--border);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.08); }
+  .card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+  .card p { color: var(--text-secondary); font-size: 0.95rem; }
+
+  /* COLLAPSIBLE */
+  .collapsible { cursor: pointer; user-select: none; }
+  .collapsible::after {
+    content: '▸'; float: right; transition: transform .3s;
+    color: var(--accent); font-weight: 700;
+  }
+  .collapsible.active::after { transform: rotate(90deg); }
+  .collapse-content {
+    max-height: 0; overflow: hidden;
+    transition: max-height .4s ease, padding .3s;
+  }
+  .collapse-content.show { max-height: 800px; padding-top: 0.8rem; }
+  .collapse-detail {
+    background: var(--bg); border-radius: 8px;
+    padding: 1rem 1.2rem; font-size: 0.9rem;
+    color: var(--text-secondary); line-height: 1.8;
+  }
+
+  /* STATS */
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem; }
+  .stat-card {
+    background: var(--card); border-radius: var(--radius);
+    box-shadow: var(--shadow); padding: 1.2rem; text-align: center;
+    border: 1px solid var(--border);
+  }
+  .stat-num { font-size: 1.8rem; font-weight: 800; color: var(--accent); }
+  .stat-label { font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.2rem; }
+
+  /* TIPS */
+  .tip-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .tip-card {
+    background: var(--card); border-radius: var(--radius);
+    box-shadow: var(--shadow); padding: 1.2rem;
+    border: 1px solid var(--border);
+  }
+  .tip-card .tip-icon { font-size: 1.8rem; margin-bottom: 0.5rem; }
+  .tip-card h4 { font-size: 0.95rem; margin-bottom: 0.4rem; }
+  .tip-card p { font-size: 0.85rem; color: var(--text-secondary); }
+
+  /* OUTLOOK */
+  .outlook-card {
+    background: linear-gradient(135deg, #4f6df5 0%, #7c3aed 100%);
+    color: #fff; border-radius: var(--radius);
+    padding: 2rem; position: relative; overflow: hidden;
+  }
+  .outlook-card h3 { font-size: 1.2rem; margin-bottom: 0.8rem; }
+  .outlook-card p { opacity: 0.92; font-size: 0.95rem; line-height: 1.8; }
+  .outlook-card .highlight {
+    background: rgba(255,255,255,0.2); padding: 2px 8px;
+    border-radius: 4px; font-weight: 600;
+  }
+
+  /* IMAGES */
+  .hero-img { max-width: 100%; border-radius: var(--radius); margin: 1.5rem auto 0; display: block; box-shadow: var(--shadow); }
+
+  /* FOOTER */
+  footer {
+    text-align: center; padding: 2rem;
+    color: var(--text-secondary); font-size: 0.8rem;
+    border-top: 1px solid var(--border); margin-top: 2rem;
+  }
+
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 1.6rem; }
+    .stats { grid-template-columns: 1fr; }
+    .tip-grid { grid-template-columns: 1fr; }
+    nav { padding: 0 1rem; }
+    .container { padding: 0 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo" data-zh="AI 实践之路" data-en="AI Journey">AI 实践之路</div>
+  <div class="nav-links">
+    <a href="#cases" data-zh="实践案例" data-en="Cases">实践案例</a>
+    <a href="#tips" data-zh="提效秘诀" data-en="Tips">提效秘诀</a>
+    <a href="#outlook" data-zh="未来展望" data-en="Outlook">未来展望</a>
+    <button class="lang-btn" onclick="toggleLang()">EN</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <h1 data-zh="从工具到伙伴：我的AI协作实践" data-en="From Tool to Partner: My AI Collaboration in Practice">从工具到伙伴：我的AI协作实践</h1>
+  <p class="subtitle" data-zh="AI不是取代人，而是让人专注在真正有价值的决策上。以下是我从2025年2月至今的真实落地经验。" data-en="AI doesn't replace people — it frees them to focus on decisions that truly matter. Here's my real-world experience since February 2025.">AI不是取代人，而是让人专注在真正有价值的决策上。以下是我从2025年2月至今的真实落地经验。</p>
+  <span class="badge" data-zh="📅 持续更新中 · 始于 2025.02" data-en="📅 Continuously Updated · Since 2025.02">📅 持续更新中 · 始于 2025.02</span>
+  <img class="hero-img" src="img-hero.jpg" alt="AI Collaboration">
+</div>
+
+<!-- STATS -->
+<div class="container">
+  <div class="stats">
+    <div class="stat-card">
+      <div class="stat-num" data-zh="5x+" data-en="5x+">5x+</div>
+      <div class="stat-label" data-zh="报税效率提升" data-en="Tax Filing Efficiency">报税效率提升</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" data-zh="3天" data-en="3 Days">3天</div>
+      <div class="stat-label" data-zh="解决一周未结的投诉" data-en="Resolved Week-long Dispute">解决一周未结的投诉</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" data-zh="+1.5h/天" data-en="+1.5h/day">+1.5h/天</div>
+      <div class="stat-label" data-zh="FSD解放的通勤时间" data-en="Commute Time Freed by FSD">FSD解放的通勤时间</div>
+    </div>
+  </div>
+</div>
+
+<!-- CASES -->
+<div class="container section" id="cases">
+  <div class="section-title"><span class="section-icon">📋</span> <span data-zh="实践案例" data-en="Case Studies">实践案例</span></div>
+
+  <div class="timeline">
+
+    <!-- Case 1: Tax -->
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">2025.02 — 2025.03</div>
+      <div class="card">
+        <h3 class="collapsible" onclick="toggleCollapse(this)" data-zh="🧾 个人报税：从大半天到不到1小时" data-en="🧾 Tax Filing: From Half a Day to Under 1 Hour">🧾 个人报税：从大半天到不到1小时</h3>
+        <p data-zh="AI梳理规则、整理扣除项、生成填表模板，效率提升5倍以上。" data-en="AI organized tax rules, identified deductions, and generated filing templates — 5x+ efficiency gain.">AI梳理规则、整理扣除项、生成填表模板，效率提升5倍以上。</p>
+        <div class="collapse-content">
+          <div class="collapse-detail">
+            <p data-zh="<strong>以前：</strong>自己翻几十页报税指南，逐项核对扣除规则，整理各类凭证，至少半天时间，还容易漏项出错。<br><br><strong>现在：</strong>把各类凭证信息用语音输入给AI，它自动梳理符合要求的扣除项、核对规则、生成申报填表模板。我只需要最终核对确认，整个过程不到1小时。<br><br><strong>核心价值：</strong>AI把重复的规则梳理和信息整理全部搞定，人只负责最终决策。" data-en="<strong>Before:</strong> Manually reviewed dozens of pages of tax guides, cross-checked deduction rules, organized receipts — took at least half a day with frequent errors.<br><br><strong>After:</strong> Voice-input all documents to AI. It automatically identified eligible deductions, cross-referenced rules, and generated filing templates. I only reviewed the final result — done in under 1 hour.<br><br><strong>Key Value:</strong> AI handles all repetitive rule-checking and data organization. Humans focus on final decisions only."><strong>以前：</strong>自己翻几十页报税指南，逐项核对扣除规则，整理各类凭证，至少半天时间，还容易漏项出错。<br><br><strong>现在：</strong>把各类凭证信息用语音输入给AI，它自动梳理符合要求的扣除项、核对规则、生成申报填表模板。我只需要最终核对确认，整个过程不到1小时。<br><br><strong>核心价值：</strong>AI把重复的规则梳理和信息整理全部搞定，人只负责最终决策。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Case 2: Complaint -->
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">2025.03</div>
+      <div class="card">
+        <h3 class="collapsible" onclick="toggleCollapse(this)" data-zh="📡 网络服务投诉：从一周拖沓到3天解决" data-en="📡 ISP Dispute: From a Week of Frustration to 3-Day Resolution">📡 网络服务投诉：从一周拖沓到3天解决</h3>
+        <p data-zh="AI整理投诉要点、生成符合规范的投诉文书，节省3-5倍时间精力。" data-en="AI organized complaint arguments, generated formal complaint documents — saved 3-5x time and effort.">AI整理投诉要点、生成符合规范的投诉文书，节省3-5倍时间精力。</p>
+        <div class="collapse-content">
+          <div class="collapse-detail">
+            <p data-zh="<strong>以前：</strong>自己查合同条款、想投诉话术、跟进流程，折腾一周都没解决。<br><br><strong>现在：</strong>把合同片段和客服聊天记录发给AI，它直接整理出有理有据的投诉要点，生成符合官方投诉要求的文书，不到3天解决。<br><br><strong>核心价值：</strong>AI擅长从大量杂乱信息中提炼关键论点，生成结构化的专业文书——这正是普通人最耗时费力的部分。" data-en="<strong>Before:</strong> Manually reviewed contract terms, drafted complaint language, followed up on process — spent a week with no resolution.<br><br><strong>After:</strong> Sent contract excerpts and customer service chat logs to AI. It extracted key arguments and generated formal complaint documents meeting official requirements — resolved in under 3 days.<br><br><strong>Key Value:</strong> AI excels at extracting key arguments from messy information and producing structured professional documents — exactly where most people spend the most time."><strong>以前：</strong>自己查合同条款、想投诉话术、跟进流程，折腾一周都没解决。<br><br><strong>现在：</strong>把合同片段和客服聊天记录发给AI，它直接整理出有理有据的投诉要点，生成符合官方投诉要求的文书，不到3天解决。<br><br><strong>核心价值：</strong>AI擅长从大量杂乱信息中提炼关键论点，生成结构化的专业文书——这正是普通人最耗时费力的部分。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Placeholder for future cases -->
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background: var(--border); border-color: var(--bg);"></div>
+      <div class="timeline-date" data-zh="更多案例持续更新中..." data-en="More cases coming soon...">更多案例持续更新中...</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- TIPS -->
+<div class="container section" id="tips">
+  <div class="section-title"><span class="section-icon">⚡</span> <span data-zh="提效秘诀" data-en="Productivity Tips">提效秘诀</span></div>
+  <div class="tip-grid">
+    <div class="tip-card">
+      <div class="tip-icon">🚗</div>
+      <h4 data-zh="FSD + AI = 移动办公" data-en="FSD + AI = Mobile Office">FSD + AI = 移动办公</h4>
+      <p data-zh="自动驾驶解放了每天1-1.5小时通勤时间。原来只能专注开车，现在全程可以和AI语音互动、布置任务，相当于每天多出一整块深度工作时间。" data-en="Self-driving frees up 1-1.5 hours of daily commute. Instead of just driving, I now use this time for voice-based AI collaboration — effectively adding a full block of productive work time each day.">自动驾驶解放了每天1-1.5小时通勤时间。原来只能专注开车，现在全程可以和AI语音互动、布置任务，相当于每天多出一整块深度工作时间。</p>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">🎙️</div>
+      <h4 data-zh="语音输入 > 打字" data-en="Voice Input > Typing">语音输入 > 打字</h4>
+      <p data-zh="语音输入效率远超打字，配合专用语音设备，可以随时随地和AI交流。唯一注意点：办公室需要找安静区域，但整体体验提升非常明显。" data-en="Voice input is significantly faster than typing. With a dedicated voice device, you can interact with AI anytime, anywhere. Just find a quiet spot in the office — the productivity boost is well worth it.">语音输入效率远超打字，配合专用语音设备，可以随时随地和AI交流。唯一注意点：办公室需要找安静区域，但整体体验提升非常明显。</p>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">🔗</div>
+      <h4 data-zh="让AI做苦力，人做决策" data-en="AI Does the Grunt Work, You Decide">让AI做苦力，人做决策</h4>
+      <p data-zh="AI最擅长的是处理重复的信息整理、规则核对、文书生成。把这些工作交给它，人只需要核对最终结果并做出判断。" data-en="AI excels at repetitive tasks: organizing information, cross-checking rules, generating documents. Delegate these to AI and focus your energy on review and final decisions.">AI最擅长的是处理重复的信息整理、规则核对、文书生成。把这些工作交给它，人只需要核对最终结果并做出判断。</p>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">💬</div>
+      <h4 data-zh="给AI足够的上下文" data-en="Give AI Enough Context">给AI足够的上下文</h4>
+      <p data-zh="直接把原始材料（合同、聊天记录、凭证）发给AI，比自己先整理再提问效果好得多。AI能从杂乱信息中提炼结构化内容——这正是它的强项。" data-en="Send raw materials (contracts, chat logs, receipts) directly to AI rather than pre-organizing. AI is great at extracting structure from messy data — that's its superpower.">直接把原始材料（合同、聊天记录、凭证）发给AI，比自己先整理再提问效果好得多。AI能从杂乱信息中提炼结构化内容——这正是它的强项。</p>
+    </div>
+  </div>
+</div>
+
+<!-- OUTLOOK -->
+<div class="container section" id="outlook">
+  <div class="section-title"><span class="section-icon">🔭</span> <span data-zh="行业展望" data-en="Industry Outlook">行业展望</span></div>
+  <div class="outlook-card">
+    <h3 data-zh="AI就像一台功能齐全的电脑，现在缺的是「把插头插上」" data-en="AI Is a Fully Capable Computer — It Just Needs to Be 'Plugged In'">AI就像一台功能齐全的电脑，现在缺的是「把插头插上」</h3>
+    <p data-zh="AI本身能力已经很强了，大部分工作都能做。真正的瓶颈在于<span class='highlight'>人和AI配合</span>——把AI和现有业务系统连接起来。<br><br>目前企业在用的AI，因为数据安全和系统打通的问题，比最先进的个人AI能力<span class='highlight'>落后6-9个月</span>，很多系统接口还需要人工连接。<br><br>如果能在保障数据安全的前提下打通各个数据库接口，AI就能带来爆发式的效率提升：从日常的<span class='highlight'>数据分析、报表自动化</span>，到芯片研发的<span class='highlight'>数据预测、执行步骤推荐</span>。<br><br>以现有AI能力判断，<span class='highlight'>1-2年内可落地</span>，有外部阻碍最多不超过3年。" data-en="AI is already highly capable — it can handle most tasks. The real bottleneck is <span class='highlight'>human-AI integration</span> — connecting AI to existing business systems.<br><br>Due to data security concerns and integration lag, enterprise AI currently trails consumer AI by <span class='highlight'>6-9 months</span>. Many system interfaces still require manual bridging.<br><br>Once databases are securely connected, AI will unlock explosive efficiency gains: from routine <span class='highlight'>data analysis and report automation</span> to semiconductor R&D <span class='highlight'>data prediction and process optimization</span>.<br><br>Based on current AI capabilities, <span class='highlight'>deployable within 1-2 years</span> — 3 years at most with external barriers.">AI本身能力已经很强了，大部分工作都能做。真正的瓶颈在于<span class="highlight">人和AI配合</span>——把AI和现有业务系统连接起来。<br><br>目前企业在用的AI，因为数据安全和系统打通的问题，比最先进的个人AI能力<span class="highlight">落后6-9个月</span>，很多系统接口还需要人工连接。<br><br>如果能在保障数据安全的前提下打通各个数据库接口，AI就能带来爆发式的效率提升：从日常的<span class="highlight">数据分析、报表自动化</span>，到芯片研发的<span class="highlight">数据预测、执行步骤推荐</span>。<br><br>以现有AI能力判断，<span class="highlight">1-2年内可落地</span>，有外部阻碍最多不超过3年。</p>
+  </div>
+</div>
+
+<footer>
+  <span data-zh="持续更新 · 用AI构建" data-en="Continuously Updated · Built with AI">持续更新 · 用AI构建</span>
+</footer>
+
+<script>
+  let currentLang = 'zh';
+
+  function toggleLang() {
+    currentLang = currentLang === 'zh' ? 'en' : 'zh';
+    document.querySelectorAll('[data-zh]').forEach(el => {
+      const text = el.getAttribute('data-' + currentLang);
+      if (text) {
+        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+          el.placeholder = text;
+        } else {
+          el.innerHTML = text;
+        }
+      }
+    });
+    document.querySelector('.lang-btn').textContent = currentLang === 'zh' ? 'EN' : '中文';
+    document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : 'en';
+  }
+
+  function toggleCollapse(el) {
+    el.classList.toggle('active');
+    const content = el.parentElement.querySelector('.collapse-content');
+    content.classList.toggle('show');
+  }
+</script>
+</body>
+</html>
