@@ -6,529 +6,638 @@
 <title>AI Productivity in Practice | Executive Briefing</title>
 <style>
   :root {
-    --navy: #0f1e2e;
-    --navy-mid: #1a2f45;
-    --navy-light: #243c55;
-    --gold: #c8a96e;
-    --gold-light: #f0deb8;
+    --navy: #0d1b2a;
+    --navy-mid: #1b2f45;
+    --navy-light: #253f5c;
+    --gold: #b8963e;
+    --gold-light: #d4af6a;
+    --gold-faint: rgba(184,150,62,0.08);
     --white: #ffffff;
-    --off-white: #f4f6f8;
+    --off-white: #f5f6f8;
     --text: #1a2332;
     --text-secondary: #4a5568;
     --text-muted: #718096;
-    --border: #e2e8f0;
-    --border-dark: #2a3f58;
-    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
-    --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
-    --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
-    --radius: 4px;
-    --radius-lg: 8px;
+    --border: #dde2ea;
+    --green: #276749;
+    --red: #c53030;
+    --green-bg: #f0fff4;
+    --red-bg: #fff5f5;
+    --radius: 3px;
+    --radius-lg: 6px;
+    --shadow: 0 1px 4px rgba(0,0,0,0.07), 0 4px 16px rgba(0,0,0,0.05);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
-    font-family: 'Georgia', 'Times New Roman', 'PingFang SC', 'STSong', serif;
+    font-family: 'Georgia', 'Times New Roman', 'STSong', 'PingFang SC', serif;
     background: var(--off-white);
     color: var(--text);
-    line-height: 1.75;
+    line-height: 1.8;
     -webkit-font-smoothing: antialiased;
   }
 
-  /* ── NAVIGATION ── */
+  /* NAV */
   nav {
     position: sticky; top: 0; z-index: 100;
     background: var(--navy);
     display: flex; justify-content: space-between; align-items: center;
-    padding: 0 3rem; height: 52px;
-    border-bottom: 1px solid var(--gold);
+    padding: 0 3rem; height: 48px;
+    border-bottom: 2px solid var(--gold);
   }
   .nav-logo {
     font-family: -apple-system, 'Helvetica Neue', sans-serif;
-    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em;
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em;
     color: var(--gold); text-transform: uppercase;
   }
-  .nav-links { display: flex; gap: 2rem; align-items: center; }
+  .nav-links { display: flex; gap: 2.5rem; align-items: center; }
   nav a {
-    text-decoration: none; color: rgba(255,255,255,0.65);
-    font-family: -apple-system, 'Helvetica Neue', sans-serif;
-    font-size: 0.78rem; letter-spacing: 0.06em;
-    transition: color .2s;
+    font-family: -apple-system, sans-serif;
+    text-decoration: none; color: rgba(255,255,255,0.55);
+    font-size: 0.75rem; letter-spacing: 0.08em;
+    transition: color .15s;
   }
-  nav a:hover { color: var(--gold); }
+  nav a:hover { color: var(--gold-light); }
   .lang-btn {
-    background: transparent; color: var(--gold);
-    border: 1px solid var(--gold); padding: 3px 12px; border-radius: 2px;
-    font-size: 0.72rem; letter-spacing: 0.08em;
-    cursor: pointer; font-family: -apple-system, sans-serif;
-    transition: all .2s;
+    background: transparent; color: rgba(255,255,255,0.45);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 3px 12px; border-radius: 2px;
+    font-size: 0.7rem; letter-spacing: 0.1em; cursor: pointer;
+    font-family: -apple-system, sans-serif;
+    transition: all .15s;
   }
-  .lang-btn:hover { background: var(--gold); color: var(--navy); }
+  .lang-btn:hover { border-color: var(--gold); color: var(--gold); }
 
-  /* ── MASTHEAD ── */
-  .masthead {
+  /* COVER */
+  .cover {
     background: var(--navy);
-    color: var(--white);
-    padding: 5rem 3rem 4rem;
-    position: relative;
-    overflow: hidden;
+    padding: 5rem 3rem 4.5rem;
+    position: relative; overflow: hidden;
   }
-  .masthead::before {
+  .cover::after {
     content: '';
-    position: absolute; top: 0; right: 0;
-    width: 40%; height: 100%;
-    background: linear-gradient(135deg, transparent 30%, rgba(200,169,110,0.06) 100%);
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold) 0%, transparent 60%);
   }
-  .masthead-inner { max-width: 900px; margin: 0 auto; position: relative; }
-  .masthead-label {
+  .cover-inner { max-width: 960px; margin: 0 auto; }
+  .cover-eyebrow {
     font-family: -apple-system, sans-serif;
-    font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
-    color: var(--gold); margin-bottom: 1.2rem;
-    display: flex; align-items: center; gap: 0.8rem;
+    font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.4rem;
   }
-  .masthead-label::after {
-    content: ''; flex: 1; max-width: 80px;
-    height: 1px; background: var(--gold); opacity: 0.5;
+  .cover h1 {
+    font-size: 2.8rem; font-weight: 700; line-height: 1.2;
+    color: var(--white); max-width: 720px; margin-bottom: 1.4rem;
+    letter-spacing: -0.02em;
   }
-  .masthead h1 {
-    font-size: 2.6rem; font-weight: 700; line-height: 1.25;
-    margin-bottom: 1.2rem; max-width: 680px;
-    letter-spacing: -0.01em;
+  .cover h1 em { font-style: normal; color: var(--gold-light); }
+  .cover-desc {
+    font-size: 1rem; color: rgba(255,255,255,0.65);
+    max-width: 600px; line-height: 1.85; font-style: italic;
+    border-left: 2px solid var(--gold);
+    padding-left: 1.2rem;
+    margin-bottom: 2.5rem;
   }
-  .masthead h1 em { font-style: normal; color: var(--gold); }
-  .masthead-sub {
-    font-size: 1.05rem; color: rgba(255,255,255,0.72);
-    max-width: 580px; line-height: 1.8;
-    font-style: italic;
-  }
-  .masthead-meta {
-    margin-top: 2.5rem;
-    display: flex; gap: 2rem;
+  .cover-meta {
+    display: flex; gap: 2.5rem;
     font-family: -apple-system, sans-serif;
-    font-size: 0.78rem; color: rgba(255,255,255,0.45);
-    letter-spacing: 0.04em;
+    font-size: 0.72rem; color: rgba(255,255,255,0.35);
+    letter-spacing: 0.05em;
   }
-  .masthead-meta span { display: flex; align-items: center; gap: 0.4rem; }
+  .cover-meta span::before { content: '— '; }
 
-  /* ── KEY METRICS BAR ── */
-  .metrics-bar {
+  /* KEY FINDINGS STRIP */
+  .findings-strip {
     background: var(--white);
-    border-bottom: 3px solid var(--navy);
-    box-shadow: var(--shadow-md);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
   }
-  .metrics-bar-inner {
-    max-width: 900px; margin: 0 auto;
+  .findings-inner {
+    max-width: 960px; margin: 0 auto;
     display: grid; grid-template-columns: repeat(4, 1fr);
+    divide-x: var(--border);
   }
-  .metric {
-    padding: 1.8rem 1.5rem;
+  .finding {
+    padding: 1.6rem 1.8rem;
     border-right: 1px solid var(--border);
-    text-align: center;
+    position: relative;
   }
-  .metric:last-child { border-right: none; }
-  .metric-num {
-    font-size: 2.2rem; font-weight: 700; color: var(--navy);
-    font-family: -apple-system, sans-serif; line-height: 1;
-    margin-bottom: 0.3rem;
+  .finding:last-child { border-right: none; }
+  .finding::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px; background: var(--navy);
   }
-  .metric-num sup { font-size: 1rem; vertical-align: super; }
-  .metric-label {
+  .finding-val {
+    font-family: -apple-system, sans-serif;
+    font-size: 2rem; font-weight: 700; color: var(--navy);
+    line-height: 1; margin-bottom: 0.3rem;
+  }
+  .finding-val sup { font-size: 0.9rem; }
+  .finding-desc {
     font-family: -apple-system, sans-serif;
     font-size: 0.75rem; color: var(--text-secondary);
-    letter-spacing: 0.04em; line-height: 1.4;
+    line-height: 1.45;
   }
-  .metric-note {
-    font-size: 0.68rem; color: var(--text-muted);
-    margin-top: 0.2rem;
+  .finding-note {
+    font-family: -apple-system, sans-serif;
+    font-size: 0.65rem; color: var(--text-muted);
+    margin-top: 0.3rem;
+    font-style: italic;
   }
 
-  /* ── LAYOUT ── */
-  .page-body { max-width: 900px; margin: 0 auto; padding: 3rem 2rem 4rem; }
+  /* LAYOUT */
+  .body-wrap { max-width: 960px; margin: 0 auto; padding: 3.5rem 2rem 5rem; }
 
-  /* ── SECTION HEADERS ── */
-  .sec-header {
-    display: flex; align-items: baseline; gap: 1rem;
-    margin-bottom: 1.8rem; padding-bottom: 0.8rem;
+  /* SECTION */
+  .section { margin-bottom: 4rem; }
+  .section-label {
+    font-family: -apple-system, sans-serif;
+    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.4rem; font-weight: 600;
+  }
+  .section-title {
+    font-size: 1.4rem; font-weight: 700; color: var(--navy);
+    margin-bottom: 1.6rem; padding-bottom: 0.8rem;
     border-bottom: 1px solid var(--border);
   }
-  .sec-num {
-    font-family: -apple-system, sans-serif;
-    font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--gold); font-weight: 600; white-space: nowrap;
-  }
-  .sec-title {
-    font-size: 1.3rem; font-weight: 700; color: var(--navy);
-    letter-spacing: -0.01em;
-  }
 
-  /* ── EXECUTIVE SUMMARY ── */
-  .exec-summary {
-    background: var(--navy); color: var(--white);
+  /* EXEC SUMMARY */
+  .exec-box {
+    background: var(--navy);
     border-radius: var(--radius-lg);
-    padding: 2.2rem 2.5rem; margin-bottom: 3rem;
+    padding: 2rem 2.4rem 2.2rem;
+    margin-bottom: 4rem;
     border-left: 4px solid var(--gold);
   }
-  .exec-summary-label {
+  .exec-box-label {
     font-family: -apple-system, sans-serif;
-    font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--gold); margin-bottom: 1rem; font-weight: 600;
+    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold); font-weight: 600; margin-bottom: 1rem;
   }
-  .exec-summary p {
-    color: rgba(255,255,255,0.85); font-size: 1rem; line-height: 1.85;
+  .exec-box p {
+    font-size: 0.97rem; color: rgba(255,255,255,0.8); line-height: 1.9;
+    margin-bottom: 0.8rem;
   }
-  .exec-summary strong { color: var(--gold); font-style: normal; }
+  .exec-box p:last-child { margin-bottom: 0; }
+  .exec-box strong { color: var(--gold-light); font-weight: 600; }
 
-  /* ── CASE STUDIES ── */
-  .cases { display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 3rem; }
-  .case-card {
+  /* CASE GRID */
+  .case-list { display: flex; flex-direction: column; gap: 1.2rem; }
+  .case {
     background: var(--white);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-sm);
     overflow: hidden;
+    box-shadow: var(--shadow);
   }
-  .case-header {
+  .case-top {
     display: grid; grid-template-columns: 1fr auto;
-    align-items: start; gap: 1rem;
-    padding: 1.5rem 1.8rem;
+    align-items: start; padding: 1.6rem 2rem;
     cursor: pointer; user-select: none;
+    gap: 2rem;
   }
-  .case-header:hover { background: var(--off-white); }
-  .case-tag {
-    font-family: -apple-system, sans-serif;
-    font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--text-muted); margin-bottom: 0.4rem;
-  }
-  .case-title { font-size: 1.05rem; font-weight: 700; color: var(--navy); }
-  .case-summary { font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.3rem; }
-  .case-kpi {
-    text-align: right; white-space: nowrap;
-  }
-  .case-kpi-num {
-    font-family: -apple-system, sans-serif;
-    font-size: 1.6rem; font-weight: 700; color: var(--navy); line-height: 1;
-  }
-  .case-kpi-label {
-    font-family: -apple-system, sans-serif;
-    font-size: 0.68rem; color: var(--text-muted); letter-spacing: 0.04em;
-  }
-  .expand-icon {
-    color: var(--text-muted); font-size: 0.8rem;
-    transition: transform .3s; align-self: center;
-  }
-  .case-header.open .expand-icon { transform: rotate(180deg); }
-  .case-body {
-    max-height: 0; overflow: hidden;
-    transition: max-height .4s ease;
-    border-top: 1px solid transparent;
-  }
-  .case-body.show {
-    max-height: 600px;
-    border-top-color: var(--border);
-  }
-  .case-body-inner { padding: 1.5rem 1.8rem; }
-  .before-after {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
-    margin-bottom: 1.2rem;
-  }
-  .ba-block { padding: 1rem 1.2rem; border-radius: var(--radius); }
-  .ba-block.before { background: #fef2f2; border-left: 3px solid #e53e3e; }
-  .ba-block.after { background: #f0fff4; border-left: 3px solid #38a169; }
-  .ba-label {
-    font-family: -apple-system, sans-serif;
-    font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
-    font-weight: 600; margin-bottom: 0.5rem;
-    color: var(--text-muted);
-  }
-  .ba-block.before .ba-label { color: #c53030; }
-  .ba-block.after .ba-label { color: #276749; }
-  .ba-block p { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.65; }
-  .case-insight {
-    background: var(--off-white); border-radius: var(--radius);
-    padding: 0.9rem 1.1rem;
-    font-size: 0.88rem; color: var(--text-secondary);
-    border-left: 3px solid var(--gold);
-  }
-  .case-insight strong { color: var(--text); }
-
-  /* ── PRINCIPLES SECTION ── */
-  .principles { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 3rem; }
-  .principle-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 1.4rem 1.6rem;
-    box-shadow: var(--shadow-sm);
-  }
-  .principle-num {
-    font-family: -apple-system, sans-serif;
-    font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--gold); font-weight: 700; margin-bottom: 0.5rem;
-  }
-  .principle-title { font-size: 0.97rem; font-weight: 700; color: var(--navy); margin-bottom: 0.5rem; }
-  .principle-body { font-size: 0.87rem; color: var(--text-secondary); line-height: 1.7; }
-
-  /* ── INDUSTRY ANALYSIS ── */
-  .analysis-grid { display: grid; grid-template-columns: 3fr 2fr; gap: 1.5rem; margin-bottom: 3rem; }
-  .analysis-main {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 1.8rem;
-    box-shadow: var(--shadow-sm);
-  }
-  .analysis-main h3 {
-    font-size: 1rem; font-weight: 700; color: var(--navy);
-    margin-bottom: 1rem; padding-bottom: 0.6rem;
-    border-bottom: 1px solid var(--border);
-  }
-  .analysis-main p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 0.9rem; }
-  .analysis-main p:last-child { margin-bottom: 0; }
-  .highlight-text { color: var(--navy); font-weight: 600; }
-  .analysis-sidebar { display: flex; flex-direction: column; gap: 1rem; }
-  .sidebar-card {
-    background: var(--navy);
-    color: var(--white);
-    border-radius: var(--radius-lg);
-    padding: 1.4rem;
-    flex: 1;
-  }
-  .sidebar-card-label {
-    font-family: -apple-system, sans-serif;
-    font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--gold); margin-bottom: 0.6rem; font-weight: 600;
-  }
-  .sidebar-card-num {
-    font-family: -apple-system, sans-serif;
-    font-size: 2rem; font-weight: 700; color: var(--white); line-height: 1;
-    margin-bottom: 0.3rem;
-  }
-  .sidebar-card p {
-    font-size: 0.82rem; color: rgba(255,255,255,0.65); line-height: 1.5;
-  }
-
-  /* ── TIMELINE ── */
-  .timeline-h {
-    display: grid; grid-template-columns: repeat(3, 1fr);
-    gap: 1px; background: var(--border);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    overflow: hidden; margin-bottom: 3rem;
-    box-shadow: var(--shadow-sm);
-  }
-  .tl-phase {
-    background: var(--white);
-    padding: 1.4rem 1.5rem;
-  }
-  .tl-phase-label {
+  .case-top:hover { background: #fafbfd; }
+  .case-sector {
     font-family: -apple-system, sans-serif;
     font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--text-muted); margin-bottom: 0.3rem;
+    color: var(--text-muted); margin-bottom: 0.4rem;
   }
-  .tl-phase-title { font-size: 0.92rem; font-weight: 700; color: var(--navy); margin-bottom: 0.5rem; }
-  .tl-phase-body { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6; }
-  .tl-phase.highlight { background: var(--navy); }
-  .tl-phase.highlight .tl-phase-label { color: var(--gold); }
-  .tl-phase.highlight .tl-phase-title { color: var(--white); }
-  .tl-phase.highlight .tl-phase-body { color: rgba(255,255,255,0.65); }
-
-  /* ── FOOTER ── */
-  footer {
-    background: var(--navy); color: rgba(255,255,255,0.4);
-    text-align: center; padding: 1.5rem 2rem;
+  .case-name { font-size: 1.05rem; font-weight: 700; color: var(--navy); margin-bottom: 0.35rem; }
+  .case-lead { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; }
+  .case-stats { display: flex; gap: 2rem; flex-shrink: 0; }
+  .case-stat { text-align: center; }
+  .case-stat-val {
     font-family: -apple-system, sans-serif;
-    font-size: 0.72rem; letter-spacing: 0.04em;
-    border-top: 1px solid var(--gold);
+    font-size: 1.5rem; font-weight: 700; color: var(--navy); line-height: 1;
   }
+  .case-stat-lbl {
+    font-family: -apple-system, sans-serif;
+    font-size: 0.62rem; color: var(--text-muted); letter-spacing: 0.04em;
+    margin-top: 0.2rem;
+  }
+  .expand-arrow { color: var(--text-muted); font-size: 0.75rem; align-self: center; transition: transform .25s; }
+  .case-top.open .expand-arrow { transform: rotate(180deg); }
+  .case-detail {
+    max-height: 0; overflow: hidden;
+    transition: max-height .35s ease;
+    border-top: 1px solid transparent;
+  }
+  .case-detail.show { max-height: 700px; border-top-color: var(--border); }
+  .case-detail-inner { padding: 1.6rem 2rem 2rem; }
 
-  /* ── SECTION SPACING ── */
-  .section { margin-bottom: 3rem; }
+  .ba-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.2rem; }
+  .ba {
+    padding: 1.1rem 1.3rem;
+    border-radius: var(--radius); font-size: 0.87rem; line-height: 1.7;
+  }
+  .ba-before { background: var(--red-bg); border-left: 3px solid var(--red); color: #4a2222; }
+  .ba-after { background: var(--green-bg); border-left: 3px solid var(--green); color: #1a3a2a; }
+  .ba-lbl {
+    font-family: -apple-system, sans-serif;
+    font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase;
+    font-weight: 700; margin-bottom: 0.5rem;
+  }
+  .ba-before .ba-lbl { color: var(--red); }
+  .ba-after .ba-lbl { color: var(--green); }
 
-  @media (max-width: 700px) {
-    .masthead { padding: 3rem 1.5rem; }
-    .masthead h1 { font-size: 1.8rem; }
-    .metrics-bar-inner { grid-template-columns: repeat(2, 1fr); }
-    .page-body { padding: 2rem 1.2rem; }
-    .before-after { grid-template-columns: 1fr; }
-    .principles { grid-template-columns: 1fr; }
-    .analysis-grid { grid-template-columns: 1fr; }
-    .timeline-h { grid-template-columns: 1fr; }
+  .insight {
+    background: var(--gold-faint);
+    border-left: 3px solid var(--gold);
+    padding: 0.9rem 1.2rem;
+    border-radius: var(--radius);
+    font-size: 0.87rem; color: var(--text-secondary); line-height: 1.7;
+  }
+  .insight strong { color: var(--text); }
+
+  /* BAR CHART */
+  .bar-chart { margin: 1.5rem 0; }
+  .bar-row {
+    display: grid; grid-template-columns: 140px 1fr auto;
+    align-items: center; gap: 0.8rem; margin-bottom: 0.7rem;
+  }
+  .bar-lbl {
+    font-family: -apple-system, sans-serif;
+    font-size: 0.78rem; color: var(--text-secondary); text-align: right;
+  }
+  .bar-track { background: #edf0f5; border-radius: 2px; height: 10px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 2px; transition: width 0.6s ease; }
+  .bar-fill.before { background: #d9dee8; }
+  .bar-fill.after { background: var(--navy); }
+  .bar-val {
+    font-family: -apple-system, sans-serif;
+    font-size: 0.78rem; font-weight: 600; color: var(--navy);
+    white-space: nowrap; min-width: 50px;
+  }
+  .bar-legend {
+    display: flex; gap: 1.5rem; margin-bottom: 0.8rem;
+    font-family: -apple-system, sans-serif; font-size: 0.72rem; color: var(--text-muted);
+  }
+  .bar-legend span { display: flex; align-items: center; gap: 0.4rem; }
+  .leg-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+
+  /* PRINCIPLES TABLE */
+  .principles-table {
+    width: 100%; border-collapse: collapse;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    font-size: 0.88rem;
+  }
+  .principles-table thead tr { background: var(--navy); }
+  .principles-table th {
+    padding: 0.9rem 1.4rem;
+    font-family: -apple-system, sans-serif;
+    font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(255,255,255,0.65); font-weight: 600; text-align: left;
+  }
+  .principles-table td { padding: 1rem 1.4rem; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.65; }
+  .principles-table tr:last-child td { border-bottom: none; }
+  .principles-table tr:nth-child(even) td { background: #fafbfd; }
+  .principle-n {
+    font-family: -apple-system, sans-serif;
+    font-size: 0.7rem; font-weight: 700; color: var(--gold);
+    white-space: nowrap;
+  }
+  .principle-t { font-weight: 700; color: var(--navy); margin-bottom: 0.2rem; }
+  .principle-d { color: var(--text-secondary); font-size: 0.85rem; }
+
+  /* ANALYSIS */
+  .analysis-cols { display: grid; grid-template-columns: 3fr 2fr; gap: 1.5rem; }
+  .analysis-text {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 1.8rem 2rem;
+    box-shadow: var(--shadow);
+    font-size: 0.9rem; color: var(--text-secondary); line-height: 1.85;
+  }
+  .analysis-text h4 {
+    font-size: 0.95rem; font-weight: 700; color: var(--navy);
+    margin: 1.2rem 0 0.5rem;
+  }
+  .analysis-text h4:first-child { margin-top: 0; }
+  .analysis-text p { margin-bottom: 0.8rem; }
+  .analysis-text p:last-child { margin-bottom: 0; }
+  .hl { color: var(--navy); font-weight: 600; }
+  .analysis-side { display: flex; flex-direction: column; gap: 1rem; }
+  .side-card {
+    background: var(--navy); color: var(--white);
+    border-radius: var(--radius-lg); padding: 1.5rem;
+    flex: 1;
+  }
+  .side-card-lbl {
+    font-family: -apple-system, sans-serif;
+    font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.6rem; font-weight: 600;
+  }
+  .side-card-val {
+    font-family: -apple-system, sans-serif;
+    font-size: 1.9rem; font-weight: 700; line-height: 1; margin-bottom: 0.4rem;
+  }
+  .side-card p { font-size: 0.82rem; color: rgba(255,255,255,0.6); line-height: 1.55; }
+
+  /* ENTERPRISE IMPLICATIONS */
+  .impl-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+  .impl-card {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 1.4rem 1.5rem;
+    box-shadow: var(--shadow);
+  }
+  .impl-phase {
+    font-family: -apple-system, sans-serif;
+    font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--text-muted); margin-bottom: 0.4rem;
+  }
+  .impl-title { font-size: 0.97rem; font-weight: 700; color: var(--navy); margin-bottom: 0.6rem; }
+  .impl-body { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.7; }
+  .impl-tag {
+    display: inline-block; margin-top: 0.8rem;
+    font-family: -apple-system, sans-serif;
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em;
+    padding: 2px 8px; border-radius: 2px;
+  }
+  .tag-now { background: #e8f0fe; color: #1a56db; }
+  .tag-soon { background: #fef3cd; color: #92600a; }
+  .tag-future { background: #f0fff4; color: #276749; }
+
+  /* RISK TABLE */
+  .risk-table { width: 100%; border-collapse: collapse; font-size: 0.87rem;
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow);
+  }
+  .risk-table th {
+    background: var(--navy); color: rgba(255,255,255,0.65);
+    font-family: -apple-system, sans-serif;
+    font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 0.85rem 1.4rem; text-align: left;
+  }
+  .risk-table td { padding: 0.9rem 1.4rem; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.6; }
+  .risk-table tr:last-child td { border-bottom: none; }
+  .risk-table tr:nth-child(even) td { background: #fafbfd; }
+  .risk-pill {
+    display: inline-block; font-family: -apple-system, sans-serif;
+    font-size: 0.62rem; font-weight: 700; letter-spacing: 0.06em;
+    padding: 2px 7px; border-radius: 2px;
+  }
+  .risk-h { background: #fee2e2; color: #b91c1c; }
+  .risk-m { background: #fef3c7; color: #92400e; }
+  .risk-l { background: #d1fae5; color: #065f46; }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy); color: rgba(255,255,255,0.35);
+    padding: 1.6rem 3rem;
+    font-family: -apple-system, sans-serif; font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    border-top: 2px solid var(--gold);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-note { font-style: italic; }
+
+  @media (max-width: 768px) {
+    .cover { padding: 3rem 1.5rem; }
+    .cover h1 { font-size: 1.9rem; }
+    .findings-inner { grid-template-columns: 1fr 1fr; }
+    .body-wrap { padding: 2rem 1.2rem; }
+    .ba-grid { grid-template-columns: 1fr; }
+    .impl-grid { grid-template-columns: 1fr; }
+    .analysis-cols { grid-template-columns: 1fr; }
+    .bar-row { grid-template-columns: 100px 1fr auto; }
     nav { padding: 0 1.2rem; }
-    .masthead-meta { flex-wrap: wrap; gap: 0.8rem; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    .case-stats { display: none; }
+    .risk-table td:nth-child(3), .risk-table th:nth-child(3) { display: none; }
   }
 </style>
 </head>
 <body>
 
-<!-- NAVIGATION -->
 <nav>
-  <div class="nav-logo" data-zh="AI 效能实践" data-en="AI Productivity Briefing">AI 效能实践</div>
+  <div class="nav-logo" data-zh="AI 效能 · 执行简报" data-en="AI Productivity · Executive Briefing">AI 效能 · 执行简报</div>
   <div class="nav-links">
-    <a href="#cases" data-zh="实践案例" data-en="Case Studies">实践案例</a>
-    <a href="#principles" data-zh="方法论" data-en="Principles">方法论</a>
+    <a href="#cases" data-zh="案例研究" data-en="Case Studies">案例研究</a>
+    <a href="#principles" data-zh="方法论" data-en="Methodology">方法论</a>
     <a href="#analysis" data-zh="行业分析" data-en="Industry Analysis">行业分析</a>
+    <a href="#implications" data-zh="企业建议" data-en="Implications">企业建议</a>
     <button class="lang-btn" onclick="toggleLang()">EN</button>
   </div>
 </nav>
 
-<!-- MASTHEAD -->
-<div class="masthead">
-  <div class="masthead-inner">
-    <div class="masthead-label" data-zh="执行摘要 · 2025—2026" data-en="Executive Briefing · 2025—2026">执行摘要 · 2025—2026</div>
-    <h1 data-zh="AI 协作的<em>实践路径</em>：<br>从个人效能到企业落地" data-en="<em>Practical Pathways</em> to AI Collaboration:<br>From Personal Productivity to Enterprise Scale">AI 协作的<em>实践路径</em>：<br>从个人效能到企业落地</h1>
-    <p class="masthead-sub" data-zh="基于 2025 年 2 月以来的第一线实践，记录 AI 工具如何在真实业务场景中产生可量化的效率增益——以及这对企业组织的战略意义。" data-en="Drawing on direct experience since February 2025, this briefing documents quantifiable efficiency gains from AI in real business contexts — and their strategic implications for enterprise organizations.">基于 2025 年 2 月以来的第一线实践，记录 AI 工具如何在真实业务场景中产生可量化的效率增益——以及这对企业组织的战略意义。</p>
-    <div class="masthead-meta">
-      <span data-zh="持续更新中" data-en="Continuously Updated">持续更新中</span>
-      <span data-zh="始于 2025.02" data-en="Since Feb 2025">始于 2025.02</span>
-      <span data-zh="半导体 / 科技行业视角" data-en="Semiconductor / Technology Sector Perspective">半导体 / 科技行业视角</span>
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-inner">
+    <div class="cover-eyebrow" data-zh="AI 生产力 · 第一线实践记录 · 2025年2月起持续更新" data-en="AI Productivity · First-Hand Practice Record · Updated Since February 2025">AI 生产力 · 第一线实践记录 · 2025年2月起持续更新</div>
+    <h1 data-zh="AI 协作的<em>实践路径</em>：<br>从个人效能到企业规模化落地" data-en="<em>Practical Pathways</em> to AI Collaboration:<br>From Individual Productivity to Enterprise-Scale Deployment">AI 协作的<em>实践路径</em>：<br>从个人效能到企业规模化落地</h1>
+    <p class="cover-desc" data-zh="基于真实业务场景的第一手记录。AI 的核心价值不在于替代决策者，而在于系统性剥离重复性认知劳动——使专业人员专注于判断与价值创造。本文提炼可直接迁移至企业场景的实践框架。" data-en="A first-hand record from real business contexts. The core value of AI lies not in replacing decision-makers, but in systematically offloading repetitive cognitive labor — enabling professionals to concentrate on judgment and value creation. This briefing distills a framework directly transferable to enterprise contexts.">基于真实业务场景的第一手记录。AI 的核心价值不在于替代决策者，而在于系统性剥离重复性认知劳动——使专业人员专注于判断与价值创造。本文提炼可直接迁移至企业场景的实践框架。</p>
+    <div class="cover-meta">
+      <span data-zh="行业：半导体 / 科技" data-en="Sector: Semiconductor / Technology">行业：半导体 / 科技</span>
+      <span data-zh="持续更新，始于 2025.02" data-en="Ongoing, since Feb 2025">持续更新，始于 2025.02</span>
+      <span data-zh="视角：个人实践者 → 企业决策参考" data-en="Perspective: Individual Practitioner → Enterprise Decision Reference">视角：个人实践者 → 企业决策参考</span>
     </div>
   </div>
 </div>
 
-<!-- METRICS BAR -->
-<div class="metrics-bar">
-  <div class="metrics-bar-inner">
-    <div class="metric">
-      <div class="metric-num" data-zh="5x<sup>+</sup>" data-en="5x<sup>+</sup>">5x<sup>+</sup></div>
-      <div class="metric-label" data-zh="报税流程效率提升" data-en="Tax Filing Efficiency Gain">报税流程效率提升</div>
-      <div class="metric-note" data-zh="半天 → 1 小时以内" data-en="Half-day → Under 1 hour">半天 → 1 小时以内</div>
+<!-- KEY FINDINGS -->
+<div class="findings-strip">
+  <div class="findings-inner">
+    <div class="finding">
+      <div class="finding-val">5x<sup>+</sup></div>
+      <div class="finding-desc" data-zh="合规流程效率提升<br>（报税场景，半天→不足1小时）" data-en="Compliance workflow efficiency<br>(Tax filing: half-day → under 1 hour)">合规流程效率提升<br>（报税场景，半天→不足1小时）</div>
+      <div class="finding-note" data-zh="基于实测计时对比" data-en="Based on measured time comparison">基于实测计时对比</div>
     </div>
-    <div class="metric">
-      <div class="metric-num" data-zh="3天" data-en="3 Days">3天</div>
-      <div class="metric-label" data-zh="争议解决周期压缩" data-en="Dispute Resolution Cycle">争议解决周期压缩</div>
-      <div class="metric-note" data-zh="原耗时 7+ 天" data-en="Previously 7+ days">原耗时 7+ 天</div>
+    <div class="finding">
+      <div class="finding-val">57%</div>
+      <div class="finding-desc" data-zh="争议解决周期压缩<br>（合同纠纷：7天→3天）" data-en="Dispute resolution cycle reduction<br>(Contract dispute: 7 days → 3 days)">争议解决周期压缩<br>（合同纠纷：7天→3天）</div>
+      <div class="finding-note" data-zh="单案例实测" data-en="Single case measurement">单案例实测</div>
     </div>
-    <div class="metric">
-      <div class="metric-num" data-zh="+1.5h" data-en="+1.5h">+1.5h</div>
-      <div class="metric-label" data-zh="日均深度工作时间增加" data-en="Daily Deep Work Time Added">日均深度工作时间增加</div>
-      <div class="metric-note" data-zh="通过 AI 辅助通勤场景" data-en="Via AI-assisted commute">通过 AI 辅助通勤场景</div>
+    <div class="finding">
+      <div class="finding-val">+1.5h</div>
+      <div class="finding-desc" data-zh="日均有效工作时间增加<br>（通勤时间生产性转化）" data-en="Daily productive hours gained<br>(Commute time conversion)">日均有效工作时间增加<br>（通勤时间生产性转化）</div>
+      <div class="finding-note" data-zh="累计 250+ 工作日" data-en="Accumulated over 250+ working days">累计 250+ 工作日</div>
     </div>
-    <div class="metric">
-      <div class="metric-num" data-zh="6-9mo" data-en="6-9mo">6-9mo</div>
-      <div class="metric-label" data-zh="企业 AI 落后于前沿能力" data-en="Enterprise AI Capability Gap">企业 AI 落后于前沿能力</div>
-      <div class="metric-note" data-zh="当前主要瓶颈：系统集成" data-en="Key bottleneck: system integration">当前主要瓶颈：系统集成</div>
+    <div class="finding">
+      <div class="finding-val">6–9mo</div>
+      <div class="finding-desc" data-zh="企业AI落后于前沿能力<br>（集成延迟，非技术制约）" data-en="Enterprise AI behind frontier capability<br>(Integration lag, not technology constraint)">企业AI落后于前沿能力<br>（集成延迟，非技术制约）</div>
+      <div class="finding-note" data-zh="行业观察估算" data-en="Industry observation estimate">行业观察估算</div>
     </div>
   </div>
 </div>
 
-<!-- PAGE BODY -->
-<div class="page-body">
+<!-- BODY -->
+<div class="body-wrap">
 
-  <!-- EXECUTIVE SUMMARY -->
-  <div class="exec-summary">
-    <div class="exec-summary-label" data-zh="核心结论" data-en="Key Finding">核心结论</div>
-    <p data-zh="AI 工具的核心价值不在于替代人，而在于将<strong>重复性的信息处理、规则核对与文书生成</strong>系统性地从人的工作中剥离，使决策者能够聚焦于判断与执行。当前的制约因素并非 AI 能力本身，而是<strong>人与系统之间的整合缺失</strong>。以现有技术基础，企业级 AI 整合有望在 <strong>1–2 年内</strong>产生显著的规模效益，尤其在数据分析、流程自动化与专业文书领域。" data-en="The primary value of AI tools lies not in replacing people, but in systematically removing <strong>repetitive information processing, rule verification, and document generation</strong> from knowledge workers' workload — freeing decision-makers to focus on judgment and execution. The binding constraint today is not AI capability itself, but the <strong>absence of human-system integration</strong>. Based on current technology, enterprise-scale AI integration is positioned to deliver significant returns within <strong>1–2 years</strong>, particularly in data analysis, process automation, and professional document workflows.">AI 工具的核心价值不在于替代人，而在于将<strong>重复性的信息处理、规则核对与文书生成</strong>系统性地从人的工作中剥离，使决策者能够聚焦于判断与执行。当前的制约因素并非 AI 能力本身，而是<strong>人与系统之间的整合缺失</strong>。以现有技术基础，企业级 AI 整合有望在 <strong>1–2 年内</strong>产生显著的规模效益，尤其在数据分析、流程自动化与专业文书领域。</p>
+  <!-- EXEC SUMMARY -->
+  <div class="exec-box">
+    <div class="exec-box-label" data-zh="核心结论" data-en="Executive Summary">核心结论</div>
+    <p data-zh="AI 工具在当前阶段已具备处理大多数重复性知识工作的能力。<strong>真正的制约不在于技术，而在于整合</strong>——将 AI 嵌入现有业务数据流与系统接口的能力，决定了效率增益的规模。" data-en="AI tools at the current stage are already capable of handling most repetitive knowledge work. <strong>The real constraint is not technology, but integration</strong> — the ability to embed AI into existing business data flows and system interfaces determines the scale of efficiency gains.">AI 工具在当前阶段已具备处理大多数重复性知识工作的能力。<strong>真正的制约不在于技术，而在于整合</strong>——将 AI 嵌入现有业务数据流与系统接口的能力，决定了效率增益的规模。</p>
+    <p data-zh="基于第一线实践：<strong>「规则密集型信息处理」与「非结构化信息提炼」</strong>是 AI 相较人力最具杠杆效应的两类场景，也是企业优先部署应聚焦的方向。以当前技术基础判断，<strong>1–2 年内企业级规模化落地已具备完整技术可行性</strong>；先发优势正在形成，窗口期有限。" data-en="Based on direct practice: <strong>'Rule-intensive information processing' and 'unstructured information extraction'</strong> are the two scenario types where AI delivers the highest leverage over human labor — and where enterprise deployment should concentrate. Based on current technology: <strong>enterprise-scale deployment is fully technically feasible within 1–2 years</strong>. First-mover advantages are forming; the window is limited.">基于第一线实践：<strong>「规则密集型信息处理」与「非结构化信息提炼」</strong>是 AI 相较人力最具杠杆效应的两类场景，也是企业优先部署应聚焦的方向。以当前技术基础判断，<strong>1–2 年内企业级规模化落地已具备完整技术可行性</strong>；先发优势正在形成，窗口期有限。</p>
   </div>
 
   <!-- CASE STUDIES -->
   <div class="section" id="cases">
-    <div class="sec-header">
-      <div class="sec-num" data-zh="01 — 实践案例" data-en="01 — Case Studies">01 — 实践案例</div>
-      <div class="sec-title" data-zh="量化效能记录" data-en="Quantified Productivity Records">量化效能记录</div>
-    </div>
+    <div class="section-label" data-zh="01 — 实践案例" data-en="01 — Case Studies">01 — 实践案例</div>
+    <div class="section-title" data-zh="量化效能记录：三类典型场景" data-en="Quantified Performance Records: Three Representative Scenarios">量化效能记录：三类典型场景</div>
 
-    <div class="cases">
+    <div class="case-list">
 
-      <!-- Case 1 -->
-      <div class="case-card">
-        <div class="case-header" onclick="toggleCase(this)">
+      <!-- Case 1: Tax -->
+      <div class="case">
+        <div class="case-top" onclick="toggleCase(this)">
           <div>
-            <div class="case-tag" data-zh="2025.02 — 2025.03 · 财税合规" data-en="Feb — Mar 2025 · Tax Compliance">2025.02 — 2025.03 · 财税合规</div>
-            <div class="case-title" data-zh="年度报税：从半天到不足一小时" data-en="Annual Tax Filing: From Half a Day to Under One Hour">年度报税：从半天到不足一小时</div>
-            <div class="case-summary" data-zh="AI 处理规则解析与扣除项核对，使用者仅负责最终审核。效率提升超过 5 倍。" data-en="AI handles rule interpretation and deduction verification; the user focuses solely on final review. Efficiency improved by over 5x.">AI 处理规则解析与扣除项核对，使用者仅负责最终审核。效率提升超过 5 倍。</div>
+            <div class="case-sector" data-zh="2025.02 — 2025.03 · 财税合规 · 个人年度报税" data-en="Feb — Mar 2025 · Tax Compliance · Annual Personal Filing">2025.02 — 2025.03 · 财税合规 · 个人年度报税</div>
+            <div class="case-name" data-zh="年度报税全流程重构：合规效率提升 5 倍以上" data-en="Full-Cycle Tax Filing Redesign: 5x+ Compliance Efficiency Improvement">年度报税全流程重构：合规效率提升 5 倍以上</div>
+            <div class="case-lead" data-zh="将「规则检索 + 项目核对 + 文档整合」的重复性操作系统性转移至 AI，使申报者专注于最终审核与确认决策。" data-en="Systematically transferred 'rule retrieval + item verification + document integration' repetitive operations to AI, enabling the filer to focus exclusively on final review and confirmation decisions.">将「规则检索 + 项目核对 + 文档整合」的重复性操作系统性转移至 AI，使申报者专注于最终审核与确认决策。</div>
           </div>
-          <div style="display:flex;align-items:center;gap:1.5rem">
-            <div class="case-kpi">
-              <div class="case-kpi-num">5x+</div>
-              <div class="case-kpi-label" data-zh="效率提升" data-en="Efficiency Gain">效率提升</div>
+          <div style="display:flex;align-items:center;gap:2.5rem">
+            <div class="case-stats">
+              <div class="case-stat">
+                <div class="case-stat-val">5x+</div>
+                <div class="case-stat-lbl" data-zh="效率提升" data-en="Efficiency">效率提升</div>
+              </div>
+              <div class="case-stat">
+                <div class="case-stat-val">&lt;1h</div>
+                <div class="case-stat-lbl" data-zh="全程耗时" data-en="Total Time">全程耗时</div>
+              </div>
             </div>
-            <div class="expand-icon">▼</div>
+            <div class="expand-arrow">▼</div>
           </div>
         </div>
-        <div class="case-body">
-          <div class="case-body-inner">
-            <div class="before-after">
-              <div class="ba-block before">
-                <div class="ba-label" data-zh="原有流程" data-en="Previous Process">原有流程</div>
-                <p data-zh="手动翻阅数十页报税指南，逐项核对扣除规则，整理各类凭证文件，全程至少需要半天时间，且易出现遗漏或计算错误。" data-en="Manually reviewed dozens of pages of tax guidelines, cross-checked deduction rules item by item, and organized supporting documents. Required at least half a day with a high risk of omission or calculation errors.">手动翻阅数十页报税指南，逐项核对扣除规则，整理各类凭证文件，全程至少需要半天时间，且易出现遗漏或计算错误。</p>
+        <div class="case-detail">
+          <div class="case-detail-inner">
+            <div class="ba-grid">
+              <div class="ba ba-before">
+                <div class="ba-lbl" data-zh="原有流程" data-en="Previous State">原有流程</div>
+                <p data-zh="人工翻阅 50+ 页联邦及州报税指南；逐项核对扣除资格规则；手动整理 W-2、1099 等凭证；计算边际税率场景；全程 4–5 小时，错漏率偏高。" data-en="Manual review of 50+ pages of federal and state tax guides; item-by-item deduction eligibility verification; manual organization of W-2, 1099 documents; marginal rate scenario calculation. Total: 4–5 hours with elevated error rate.">人工翻阅 50+ 页联邦及州报税指南；逐项核对扣除资格规则；手动整理 W-2、1099 等凭证；计算边际税率场景；全程 4–5 小时，错漏率偏高。</p>
               </div>
-              <div class="ba-block after">
-                <div class="ba-label" data-zh="优化后流程" data-en="Optimized Process">优化后流程</div>
-                <p data-zh="通过语音输入将各类凭证信息提供给 AI，由 AI 自动完成扣除项梳理、规则核对与申报模板生成。使用者仅需最终核对，全程不足 1 小时。" data-en="Voice-input all document information to AI, which automatically identifies eligible deductions, cross-references tax rules, and generates filing templates. The user performs a final review only — completed in under 1 hour.">通过语音输入将各类凭证信息提供给 AI，由 AI 自动完成扣除项梳理、规则核对与申报模板生成。使用者仅需最终核对，全程不足 1 小时。</p>
+              <div class="ba ba-after">
+                <div class="ba-lbl" data-zh="AI 辅助流程" data-en="AI-Assisted State">AI 辅助流程</div>
+                <p data-zh="语音输入全部凭证信息；AI 自动完成扣除项识别与规则核对，生成联邦 + Oregon 州 + Portland 市三级申报模板；申报者执行最终审核。全程不足 1 小时，错漏率显著降低。" data-en="Voice input of all document information; AI automatically identifies deductions, cross-references rules, and generates federal + Oregon state + Portland municipal filing templates. Filer executes final review only. Total: under 1 hour with materially lower error rate.">语音输入全部凭证信息；AI 自动完成扣除项识别与规则核对，生成联邦 + Oregon 州 + Portland 市三级申报模板；申报者执行最终审核。全程不足 1 小时，错漏率显著降低。</p>
               </div>
             </div>
-            <div class="case-insight">
-              <strong data-zh="关键洞察：" data-en="Key Insight: ">关键洞察：</strong><span data-zh="AI 在规则密集型、信息量大的合规场景中具有显著优势。其核心价值在于将「规则解析 + 信息结构化」这一高度重复、低判断性的工作系统性替代，使专业人员的时间释放至真正需要判断力的环节。" data-en="AI demonstrates a marked advantage in rule-intensive, high-information compliance scenarios. Its core value lies in systematically substituting 'rule interpretation + information structuring' — highly repetitive, low-judgment work — freeing professional time for tasks that genuinely require human judgment.">AI 在规则密集型、信息量大的合规场景中具有显著优势。其核心价值在于将「规则解析 + 信息结构化」这一高度重复、低判断性的工作系统性替代，使专业人员的时间释放至真正需要判断力的环节。</span>
+            <div class="bar-chart">
+              <div class="bar-legend">
+                <span><span class="leg-dot" style="background:#d9dee8"></span><span data-zh="人工处理" data-en="Manual">人工处理</span></span>
+                <span><span class="leg-dot" style="background:var(--navy)"></span><span data-zh="AI 辅助" data-en="AI-Assisted">AI 辅助</span></span>
+              </div>
+              <div class="bar-row">
+                <div class="bar-lbl" data-zh="规则检索" data-en="Rule retrieval">规则检索</div>
+                <div class="bar-track" style="position:relative;height:18px">
+                  <div class="bar-fill before" style="width:90%;height:50%;position:absolute;top:0"></div>
+                  <div class="bar-fill after" style="width:8%;height:50%;position:absolute;bottom:0;background:var(--navy)"></div>
+                </div>
+                <div class="bar-val" data-zh="90min → 5min" data-en="90min → 5min">90min → 5min</div>
+              </div>
+              <div class="bar-row">
+                <div class="bar-lbl" data-zh="扣除项核对" data-en="Deduction check">扣除项核对</div>
+                <div class="bar-track" style="position:relative;height:18px">
+                  <div class="bar-fill before" style="width:80%;height:50%;position:absolute;top:0"></div>
+                  <div class="bar-fill after" style="width:5%;height:50%;position:absolute;bottom:0;background:var(--navy)"></div>
+                </div>
+                <div class="bar-val" data-zh="80min → 0min" data-en="80min → 0min">80min → 0min</div>
+              </div>
+              <div class="bar-row">
+                <div class="bar-lbl" data-zh="文书生成" data-en="Document gen">文书生成</div>
+                <div class="bar-track" style="position:relative;height:18px">
+                  <div class="bar-fill before" style="width:60%;height:50%;position:absolute;top:0"></div>
+                  <div class="bar-fill after" style="width:4%;height:50%;position:absolute;bottom:0;background:var(--navy)"></div>
+                </div>
+                <div class="bar-val" data-zh="60min → 2min" data-en="60min → 2min">60min → 2min</div>
+              </div>
+              <div class="bar-row">
+                <div class="bar-lbl" data-zh="人工审核" data-en="Human review">人工审核</div>
+                <div class="bar-track" style="position:relative;height:18px">
+                  <div class="bar-fill before" style="width:30%;height:50%;position:absolute;top:0"></div>
+                  <div class="bar-fill after" style="width:30%;height:50%;position:absolute;bottom:0;background:var(--navy)"></div>
+                </div>
+                <div class="bar-val" data-zh="30min → 30min" data-en="30min → 30min">30min → 30min</div>
+              </div>
+            </div>
+            <div class="insight">
+              <strong data-zh="可迁移价值：" data-en="Transferable Value: ">可迁移价值：</strong><span data-zh="「规则密集型合规」是 AI 效益最确定的场景类型——规则体系固定、输入信息可结构化、输出标准明确。企业级对应场景包括：采购合规审核、质量体系文档审查、监管报告生成等，均具备直接复用的可行性。" data-en="'Rule-intensive compliance' is the scenario type with the most certain AI returns — fixed rule systems, structurable input information, and well-defined output standards. Enterprise-level analogues include: procurement compliance review, quality system document auditing, regulatory report generation — all with direct reuse feasibility.">「规则密集型合规」是 AI 效益最确定的场景类型——规则体系固定、输入信息可结构化、输出标准明确。企业级对应场景包括：采购合规审核、质量体系文档审查、监管报告生成等，均具备直接复用的可行性。</span>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Case 2 -->
-      <div class="case-card">
-        <div class="case-header" onclick="toggleCase(this)">
+      <!-- Case 2: Complaint -->
+      <div class="case">
+        <div class="case-top" onclick="toggleCase(this)">
           <div>
-            <div class="case-tag" data-zh="2025.03 · 合同争议处理" data-en="Mar 2025 · Contract Dispute Resolution">2025.03 · 合同争议处理</div>
-            <div class="case-title" data-zh="运营商服务投诉：争议解决周期压缩 57%" data-en="ISP Service Dispute: Resolution Cycle Compressed by 57%">运营商服务投诉：争议解决周期压缩 57%</div>
-            <div class="case-summary" data-zh="AI 从合同文本与沟通记录中提炼关键论点，生成合规投诉文书，将原本拖延逾一周的争议压缩至 3 天内解决。" data-en="AI extracted key arguments from contract text and communication logs, generated compliant formal complaint documents, compressing a 7+ day dispute to resolution within 3 days.">AI 从合同文本与沟通记录中提炼关键论点，生成合规投诉文书，将原本拖延逾一周的争议压缩至 3 天内解决。</div>
+            <div class="case-sector" data-zh="2025.03 · 合同争议 · 运营商服务纠纷" data-en="Mar 2025 · Contract Dispute · ISP Service Dispute">2025.03 · 合同争议 · 运营商服务纠纷</div>
+            <div class="case-name" data-zh="争议解决周期压缩 57%：从 7 天拖延到 3 天结案" data-en="57% Dispute Resolution Cycle Compression: From 7-Day Delay to 3-Day Close">争议解决周期压缩 57%：从 7 天拖延到 3 天结案</div>
+            <div class="case-lead" data-zh="AI 从非结构化合同文本与沟通记录中提炼举证逻辑，生成符合监管规范的正式投诉文书，将人力中耗时最长的「信息提炼」环节系统性替代。" data-en="AI extracted evidentiary logic from unstructured contract text and communication records, generated formal complaint documents compliant with regulatory standards, systematically replacing the most time-intensive 'information extraction' step in the human workflow.">AI 从非结构化合同文本与沟通记录中提炼举证逻辑，生成符合监管规范的正式投诉文书，将人力中耗时最长的「信息提炼」环节系统性替代。</div>
           </div>
-          <div style="display:flex;align-items:center;gap:1.5rem">
-            <div class="case-kpi">
-              <div class="case-kpi-num">57%</div>
-              <div class="case-kpi-label" data-zh="周期压缩" data-en="Cycle Reduction">周期压缩</div>
+          <div style="display:flex;align-items:center;gap:2.5rem">
+            <div class="case-stats">
+              <div class="case-stat">
+                <div class="case-stat-val">57%</div>
+                <div class="case-stat-lbl" data-zh="周期压缩" data-en="Cycle Reduction">周期压缩</div>
+              </div>
+              <div class="case-stat">
+                <div class="case-stat-val">3天</div>
+                <div class="case-stat-lbl" data-zh="结案用时" data-en="Resolution">结案用时</div>
+              </div>
             </div>
-            <div class="expand-icon">▼</div>
+            <div class="expand-arrow">▼</div>
           </div>
         </div>
-        <div class="case-body">
-          <div class="case-body-inner">
-            <div class="before-after">
-              <div class="ba-block before">
-                <div class="ba-label" data-zh="原有流程" data-en="Previous Process">原有流程</div>
-                <p data-zh="独立检索合同条款，梳理违约事实，自行拟定投诉话术，多次跟进处理流程，耗时逾一周，结果仍不确定。" data-en="Independently reviewed contract clauses, documented breach of service facts, drafted complaint language, and followed up repeatedly — consumed over a week with uncertain outcomes.">独立检索合同条款，梳理违约事实，自行拟定投诉话术，多次跟进处理流程，耗时逾一周，结果仍不确定。</p>
+        <div class="case-detail">
+          <div class="case-detail-inner">
+            <div class="ba-grid">
+              <div class="ba ba-before">
+                <div class="ba-lbl" data-zh="原有流程" data-en="Previous State">原有流程</div>
+                <p data-zh="人工检索合同条款，识别违约事实；自行拟定投诉话术；多次跟进投诉流程；反复修改提交材料。耗时 7+ 天，结果仍不确定，投诉材料质量受限于个人法律知识。" data-en="Manual review of contract terms, identification of breach facts; self-drafted complaint language; repeated follow-ups on complaint process; multiple revisions of submission materials. Time: 7+ days with uncertain outcome, complaint quality constrained by personal legal knowledge.">人工检索合同条款，识别违约事实；自行拟定投诉话术；多次跟进投诉流程；反复修改提交材料。耗时 7+ 天，结果仍不确定，投诉材料质量受限于个人法律知识。</p>
               </div>
-              <div class="ba-block after">
-                <div class="ba-label" data-zh="优化后流程" data-en="Optimized Process">优化后流程</div>
-                <p data-zh="将合同片段及客服沟通记录直接提供给 AI，由其识别违约要点，梳理举证逻辑，生成符合官方规范的投诉文书。3 天内完成解决。" data-en="Submitted contract excerpts and customer service chat logs directly to AI. It identified breach-of-contract points, structured the evidentiary logic, and generated a formal complaint document compliant with regulatory standards. Resolved within 3 days.">将合同片段及客服沟通记录直接提供给 AI，由其识别违约要点，梳理举证逻辑，生成符合官方规范的投诉文书。3 天内完成解决。</p>
+              <div class="ba ba-after">
+                <div class="ba-lbl" data-zh="AI 辅助流程" data-en="AI-Assisted State">AI 辅助流程</div>
+                <p data-zh="直接提供合同原文及客服沟通记录；AI 自动识别违约条款、梳理举证逻辑链、生成符合监管规范要求的正式投诉文书。3 天内结案，文书质量超越个人能力上限。" data-en="Directly submitted raw contract text and customer service chat logs; AI automatically identified breach clauses, structured evidentiary logic chain, generated formal complaint documents meeting regulatory standards. Resolved in 3 days; document quality exceeded individual capability ceiling.">直接提供合同原文及客服沟通记录；AI 自动识别违约条款、梳理举证逻辑链、生成符合监管规范要求的正式投诉文书。3 天内结案，文书质量超越个人能力上限。</p>
               </div>
             </div>
-            <div class="case-insight">
-              <strong data-zh="关键洞察：" data-en="Key Insight: ">关键洞察：</strong><span data-zh="AI 在「非结构化信息提炼 + 结构化文书生成」场景中表现出色。这一能力对企业法务、采购合同管理、客户投诉处理等高频专业文书场景具有直接迁移价值。" data-en="AI excels in 'unstructured information extraction + structured document generation' scenarios. This capability has direct transferable value for enterprise legal affairs, procurement contract management, and customer complaint handling — high-frequency professional document workflows.">AI 在「非结构化信息提炼 + 结构化文书生成」场景中表现出色。这一能力对企业法务、采购合同管理、客户投诉处理等高频专业文书场景具有直接迁移价值。</span>
+            <div class="insight">
+              <strong data-zh="可迁移价值：" data-en="Transferable Value: ">可迁移价值：</strong><span data-zh="「非结构化信息提炼 + 结构化专业文书生成」直接对应企业的法务文件审查、供应商协议分析、客户投诉管理等场景。AI 能将专业文书生成能力下沉至非专业人员，同时提升质量一致性——这对合规密集型企业的规模化运营具有直接价值。" data-en="'Unstructured information extraction + structured professional document generation' directly maps to enterprise legal document review, supplier agreement analysis, and customer complaint management. AI democratizes professional document generation capability while improving quality consistency — directly valuable for compliance-intensive enterprises' scaled operations.">「非结构化信息提炼 + 结构化专业文书生成」直接对应企业的法务文件审查、供应商协议分析、客户投诉管理等场景。AI 能将专业文书生成能力下沉至非专业人员，同时提升质量一致性——这对合规密集型企业的规模化运营具有直接价值。</span>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Case 3 -->
-      <div class="case-card">
-        <div class="case-header" onclick="toggleCase(this)">
+      <!-- Case 3: Commute -->
+      <div class="case">
+        <div class="case-top" onclick="toggleCase(this)">
           <div>
-            <div class="case-tag" data-zh="2025.02 至今 · 工作流重构" data-en="Feb 2025 Ongoing · Workflow Restructuring">2025.02 至今 · 工作流重构</div>
-            <div class="case-title" data-zh="通勤时间的生产性转化：FSD + 语音 AI 协作" data-en="Converting Commute to Productive Time: FSD + Voice AI Collaboration">通勤时间的生产性转化：FSD + 语音 AI 协作</div>
-            <div class="case-summary" data-zh="将原本无法利用的通勤时间转化为每日 1–1.5 小时的深度工作时段，日均有效工作时间实质性增加。" data-en="Converted previously unusable commute time into 1–1.5 hours of daily deep work capacity, materially increasing effective productive hours.">将原本无法利用的通勤时间转化为每日 1–1.5 小时的深度工作时段，日均有效工作时间实质性增加。</div>
+            <div class="case-sector" data-zh="2025.02 至今 · 工作流重构 · 通勤场景转化" data-en="Feb 2025 Ongoing · Workflow Restructuring · Commute Conversion">2025.02 至今 · 工作流重构 · 通勤场景转化</div>
+            <div class="case-name" data-zh="通勤时间生产性转化：日均有效工作时间实质性增加 1.5 小时" data-en="Commute-to-Productivity Conversion: +1.5 Effective Work Hours Per Day">通勤时间生产性转化：日均有效工作时间实质性增加 1.5 小时</div>
+            <div class="case-lead" data-zh="自动驾驶与语音 AI 协作的组合，将原本不可利用的通勤时段转化为高质量深度工作时段，在不延长总工时的前提下实质性扩展了决策时间供给。" data-en="The combination of autonomous driving and voice AI collaboration converted previously unusable commute time into high-quality deep work capacity, materially expanding decision-making time supply without extending total work hours.">自动驾驶与语音 AI 协作的组合，将原本不可利用的通勤时段转化为高质量深度工作时段，在不延长总工时的前提下实质性扩展了决策时间供给。</div>
           </div>
-          <div style="display:flex;align-items:center;gap:1.5rem">
-            <div class="case-kpi">
-              <div class="case-kpi-num">+1.5h</div>
-              <div class="case-kpi-label" data-zh="日均增效" data-en="Daily Gain">日均增效</div>
+          <div style="display:flex;align-items:center;gap:2.5rem">
+            <div class="case-stats">
+              <div class="case-stat">
+                <div class="case-stat-val">+1.5h</div>
+                <div class="case-stat-lbl" data-zh="日均增效" data-en="Daily Gain">日均增效</div>
+              </div>
+              <div class="case-stat">
+                <div class="case-stat-val">250+</div>
+                <div class="case-stat-lbl" data-zh="累计工作日" data-en="Working Days">累计工作日</div>
+              </div>
             </div>
-            <div class="expand-icon">▼</div>
+            <div class="expand-arrow">▼</div>
           </div>
         </div>
-        <div class="case-body">
-          <div class="case-body-inner">
-            <div class="before-after">
-              <div class="ba-block before">
-                <div class="ba-label" data-zh="原有模式" data-en="Previous Mode">原有模式</div>
-                <p data-zh="通勤时间专注于驾驶，无法进行有价值的工作或思考。每天损失 1–1.5 小时潜在工作时间。" data-en="Commute time devoted entirely to driving. 1–1.5 hours of potential productive time lost per day.">通勤时间专注于驾驶，无法进行有价值的工作或思考。每天损失 1–1.5 小时潜在工作时间。</p>
+        <div class="case-detail">
+          <div class="case-detail-inner">
+            <div class="ba-grid">
+              <div class="ba ba-before">
+                <div class="ba-lbl" data-zh="原有状态" data-en="Previous State">原有状态</div>
+                <p data-zh="通勤时间（往返约 1–1.5 小时）完全由驾驶占用，无法进行任何认知工作。相当于每年约 250 个工作日中，500–750 小时潜在工作时间的系统性损失。" data-en="Commute time (approximately 1–1.5 hours round-trip) entirely consumed by driving, precluding any cognitive work. Equivalent to a systematic loss of 500–750 hours of potential productive time annually across approximately 250 working days.">通勤时间（往返约 1–1.5 小时）完全由驾驶占用，无法进行任何认知工作。相当于每年约 250 个工作日中，500–750 小时潜在工作时间的系统性损失。</p>
               </div>
-              <div class="ba-block after">
-                <div class="ba-label" data-zh="优化后模式" data-en="Optimized Mode">优化后模式</div>
-                <p data-zh="自动驾驶系统接管驾驶任务，全程通过语音与 AI 交互：布置任务、整理思路、处理信息。通勤时间转化为实质性的深度工作时段。" data-en="Autonomous driving system handles vehicle operation. The full commute is spent in voice-based AI collaboration: delegating tasks, organizing thinking, processing information. Commute converted to substantive deep work.">自动驾驶系统接管驾驶任务，全程通过语音与 AI 交互：布置任务、整理思路、处理信息。通勤时间转化为实质性的深度工作时段。</p>
+              <div class="ba ba-after">
+                <div class="ba-lbl" data-zh="优化后状态" data-en="Optimized State">优化后状态</div>
+                <p data-zh="自动驾驶系统接管车辆操控；全程通过语音与 AI 交互完成：任务委派、思路整理、信息处理、初稿生成。通勤时间完整转化为深度工作时段，年均有效工作时间增加 375+ 小时。" data-en="Autonomous driving system manages vehicle operation; the entire commute is used for voice-based AI collaboration: task delegation, thought organization, information processing, initial draft generation. Commute fully converted to deep work; annual effective work time increases by 375+ hours.">自动驾驶系统接管车辆操控；全程通过语音与 AI 交互完成：任务委派、思路整理、信息处理、初稿生成。通勤时间完整转化为深度工作时段，年均有效工作时间增加 375+ 小时。</p>
               </div>
             </div>
-            <div class="case-insight">
-              <strong data-zh="关键洞察：" data-en="Key Insight: ">关键洞察：</strong><span data-zh="AI 与物理场景的结合（自动驾驶 + 语音输入）正在重新定义「可工作时间」的边界。对管理层而言，这意味着在不增加工时压力的前提下，实质性扩展了高质量决策时间的供给。" data-en="The combination of AI with physical context (autonomous driving + voice input) is redefining the boundaries of 'productive time.' For management, this means materially expanding the supply of high-quality decision-making time without increasing work-hour pressure.">AI 与物理场景的结合（自动驾驶 + 语音输入）正在重新定义「可工作时间」的边界。对管理层而言，这意味着在不增加工时压力的前提下，实质性扩展了高质量决策时间的供给。</span>
+            <div class="insight">
+              <strong data-zh="战略意义：" data-en="Strategic Implication: ">战略意义：</strong><span data-zh="AI 与物理场景的结合（自动驾驶 + 语音界面）正在重新定义「可工作时间」的边界。对管理层而言，这意味着在不增加工时压力的前提下，实质性扩展高质量决策时间的供给——这对需要在快节奏环境中保持思考深度的高管尤为关键。" data-en="The combination of AI with physical contexts (autonomous driving + voice interface) is redefining the boundaries of 'available productive time.' For senior management, this means materially expanding the supply of high-quality decision-making time without increasing work-hour pressure — particularly critical for executives who need to maintain depth of thinking in fast-paced environments.">AI 与物理场景的结合（自动驾驶 + 语音界面）正在重新定义「可工作时间」的边界。对管理层而言，这意味着在不增加工时压力的前提下，实质性扩展高质量决策时间的供给——这对需要在快节奏环境中保持思考深度的高管尤为关键。</span>
             </div>
           </div>
         </div>
@@ -537,119 +646,175 @@
     </div>
   </div>
 
-  <!-- PRINCIPLES -->
+  <!-- METHODOLOGY -->
   <div class="section" id="principles">
-    <div class="sec-header">
-      <div class="sec-num" data-zh="02 — 方法论" data-en="02 — Operating Principles">02 — 方法论</div>
-      <div class="sec-title" data-zh="高效 AI 协作的四项原则" data-en="Four Principles for High-Leverage AI Collaboration">高效 AI 协作的四项原则</div>
-    </div>
-    <div class="principles">
-      <div class="principle-card">
-        <div class="principle-num" data-zh="原则 01" data-en="Principle 01">原则 01</div>
-        <div class="principle-title" data-zh="原始材料优于预处理信息" data-en="Raw Materials Over Pre-Processed Information">原始材料优于预处理信息</div>
-        <div class="principle-body" data-zh="将合同原文、沟通记录、凭证文件直接提供给 AI，效果远优于先人工整理再提问。AI 具备从非结构化数据中提炼关键信息的能力——这正是其核心优势所在。" data-en="Providing raw documents — contracts, communication logs, receipts — directly to AI consistently outperforms pre-organizing information before querying. AI's ability to extract structure from unstructured data is a core competitive advantage.">将合同原文、沟通记录、凭证文件直接提供给 AI，效果远优于先人工整理再提问。AI 具备从非结构化数据中提炼关键信息的能力——这正是其核心优势所在。</div>
-      </div>
-      <div class="principle-card">
-        <div class="principle-num" data-zh="原则 02" data-en="Principle 02">原则 02</div>
-        <div class="principle-title" data-zh="语音输入显著优于文字输入" data-en="Voice Input Substantially Outperforms Typing">语音输入显著优于文字输入</div>
-        <div class="principle-body" data-zh="语音交互的信息传递速度和自然表达度大幅超越键盘输入。配合专用语音设备，可在移动场景中实现连续工作。唯一限制为办公场所的声学条件。" data-en="Voice interaction transmits information substantially faster and more naturally than keyboard input. Combined with dedicated voice devices, continuous work in mobile contexts becomes viable. The only constraint is the acoustic environment of office settings.">语音交互的信息传递速度和自然表达度大幅超越键盘输入。配合专用语音设备，可在移动场景中实现连续工作。唯一限制为办公场所的声学条件。</div>
-      </div>
-      <div class="principle-card">
-        <div class="principle-num" data-zh="原则 03" data-en="Principle 03">原则 03</div>
-        <div class="principle-title" data-zh="将执行性工作系统性转移给 AI" data-en="Systematically Delegate Execution to AI">将执行性工作系统性转移给 AI</div>
-        <div class="principle-body" data-zh="AI 最适合承担：信息检索与整理、规则解析与核对、标准文书生成。人力应专注于：业务判断、创意决策、关系管理。明确分工是释放 AI 杠杆效应的前提。" data-en="AI is optimally suited for: information retrieval and organization, rule interpretation and cross-checking, standardized document generation. Human capacity should concentrate on: business judgment, creative decisions, relationship management. Clear role delineation is prerequisite for unlocking AI leverage.">AI 最适合承担：信息检索与整理、规则解析与核对、标准文书生成。人力应专注于：业务判断、创意决策、关系管理。明确分工是释放 AI 杠杆效应的前提。</div>
-      </div>
-      <div class="principle-card">
-        <div class="principle-num" data-zh="原则 04" data-en="Principle 04">原则 04</div>
-        <div class="principle-title" data-zh="人保留最终审核权" data-en="Human Retains Final Review Authority">人保留最终审核权</div>
-        <div class="principle-body" data-zh="在当前 AI 能力阶段，最有效的工作模式是「AI 生成初稿，人审核确认」。这不仅保障了准确性，也是建立信任、逐步扩展 AI 授权边界的必要路径。" data-en="At the current stage of AI capability, the most effective workflow is 'AI generates draft, human reviews and approves.' This ensures accuracy and represents the necessary path for building trust and progressively expanding AI's authorized scope.">在当前 AI 能力阶段，最有效的工作模式是「AI 生成初稿，人审核确认」。这不仅保障了准确性，也是建立信任、逐步扩展 AI 授权边界的必要路径。</div>
-      </div>
-    </div>
+    <div class="section-label" data-zh="02 — 方法论" data-en="02 — Methodology">02 — 方法论</div>
+    <div class="section-title" data-zh="高杠杆 AI 协作的四项操作原则" data-en="Four Operating Principles for High-Leverage AI Collaboration">高杠杆 AI 协作的四项操作原则</div>
+    <table class="principles-table">
+      <thead>
+        <tr>
+          <th data-zh="原则" data-en="Principle">原则</th>
+          <th data-zh="核心主张" data-en="Core Premise">核心主张</th>
+          <th data-zh="操作要点" data-en="Operating Guidance">操作要点</th>
+          <th data-zh="企业级适用场景" data-en="Enterprise Application">企业级适用场景</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="principle-n" data-zh="原则 01" data-en="P-01">原则 01</div></td>
+          <td><div class="principle-t" data-zh="原始材料优于预处理信息" data-en="Raw Materials Over Pre-Processed Information">原始材料优于预处理信息</div><div class="principle-d" data-zh="AI 的信息提炼能力强于人工整理。直接提供原始文档，效果优于先人工整理再查询。" data-en="AI's information extraction capability exceeds manual organization. Providing raw documents directly outperforms pre-organizing before querying.">AI 的信息提炼能力强于人工整理。直接提供原始文档，效果优于先人工整理再查询。</div></td>
+          <td><div class="principle-d" data-zh="将合同原文、沟通记录、数据报表直接输入；避免人工摘要层的信息损耗" data-en="Input raw contracts, communication logs, data reports directly; avoid information loss through human summarization layers">将合同原文、沟通记录、数据报表直接输入；避免人工摘要层的信息损耗</div></td>
+          <td><div class="principle-d" data-zh="法务审查、供应商评估、财务分析" data-en="Legal review, vendor evaluation, financial analysis">法务审查、供应商评估、财务分析</div></td>
+        </tr>
+        <tr>
+          <td><div class="principle-n" data-zh="原则 02" data-en="P-02">原则 02</div></td>
+          <td><div class="principle-t" data-zh="语音交互显著优于文本输入" data-en="Voice Interaction Substantially Outperforms Text Input">语音交互显著优于文本输入</div><div class="principle-d" data-zh="语音信息传递速度与自然度大幅超越键盘输入，尤其在移动与非桌面场景中优势明显。" data-en="Voice transmission speed and naturalness substantially exceed keyboard input, with particularly marked advantages in mobile and non-desktop contexts.">语音信息传递速度与自然度大幅超越键盘输入，尤其在移动与非桌面场景中优势明显。</div></td>
+          <td><div class="principle-d" data-zh="配置专用语音设备；识别办公场所中的适用声学环境；建立语音工作流规范" data-en="Configure dedicated voice devices; identify applicable acoustic environments in office settings; establish voice workflow standards">配置专用语音设备；识别办公场所中的适用声学环境；建立语音工作流规范</div></td>
+          <td><div class="principle-d" data-zh="移动办公、会议纪要、现场反馈收集" data-en="Mobile work, meeting notes, on-site feedback collection">移动办公、会议纪要、现场反馈收集</div></td>
+        </tr>
+        <tr>
+          <td><div class="principle-n" data-zh="原则 03" data-en="P-03">原则 03</div></td>
+          <td><div class="principle-t" data-zh="执行性工作系统性转移，决策性工作人力保留" data-en="Systematically Transfer Execution; Retain Human Authority Over Decisions">执行性工作系统性转移，决策性工作人力保留</div><div class="principle-d" data-zh="明确 AI 与人力的分工边界是释放杠杆效应的前提条件。" data-en="Clearly delineating the boundary between AI and human responsibility is prerequisite for unlocking leverage.">明确 AI 与人力的分工边界是释放杠杆效应的前提条件。</div></td>
+          <td><div class="principle-d" data-zh="AI负责：信息检索、规则核对、初稿生成；人力负责：业务判断、风险决策、最终审核" data-en="AI handles: information retrieval, rule verification, draft generation; Humans retain: business judgment, risk decisions, final review">AI负责：信息检索、规则核对、初稿生成；人力负责：业务判断、风险决策、最终审核</div></td>
+          <td><div class="principle-d" data-zh="研发数据分析、采购初审、客服一线响应" data-en="R&D data analysis, procurement screening, customer service first response">研发数据分析、采购初审、客服一线响应</div></td>
+        </tr>
+        <tr>
+          <td><div class="principle-n" data-zh="原则 04" data-en="P-04">原则 04</div></td>
+          <td><div class="principle-t" data-zh="完整上下文输入，避免信息截断" data-en="Complete Context Input; Avoid Information Truncation">完整上下文输入，避免信息截断</div><div class="principle-d" data-zh="AI 输出质量与输入信息完整度高度正相关。信息截断是最常见的效果下降来源。" data-en="AI output quality is highly positively correlated with input information completeness. Information truncation is the most common source of performance degradation.">AI 输出质量与输入信息完整度高度正相关。信息截断是最常见的效果下降来源。</div></td>
+          <td><div class="principle-d" data-zh="提供完整背景材料而非摘要；说明任务目标与约束条件；指定输出格式与质量标准" data-en="Provide complete background materials rather than summaries; state task objectives and constraints; specify output format and quality standards">提供完整背景材料而非摘要；说明任务目标与约束条件；指定输出格式与质量标准</div></td>
+          <td><div class="principle-d" data-zh="复杂项目评估、多维度分析报告、战略文档起草" data-en="Complex project evaluation, multi-dimensional analysis reports, strategic document drafting">复杂项目评估、多维度分析报告、战略文档起草</div></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
   <!-- INDUSTRY ANALYSIS -->
   <div class="section" id="analysis">
-    <div class="sec-header">
-      <div class="sec-num" data-zh="03 — 行业分析" data-en="03 — Industry Analysis">03 — 行业分析</div>
-      <div class="sec-title" data-zh="企业 AI 落地的结构性机遇与制约" data-en="Structural Opportunities and Constraints in Enterprise AI Deployment">企业 AI 落地的结构性机遇与制约</div>
-    </div>
-    <div class="analysis-grid">
-      <div class="analysis-main">
-        <h3 data-zh="当前格局：能力已足，整合滞后" data-en="Current Landscape: Capability Ready, Integration Lagging">当前格局：能力已足，整合滞后</h3>
-        <p data-zh="AI 本身的能力边界已经相当宽泛——大多数重复性知识工作均可有效处理。当前的制约，在于<span class='highlight-text'>人与 AI 之间的系统接口</span>。企业级 AI 因数据安全合规与遗留系统集成的挑战，普遍落后于个人前沿 AI 能力 <span class='highlight-text'>6–9 个月</span>，部分接口仍依赖人工中转。" data-en="The capability frontier of AI is already broad — most repetitive knowledge work can be handled effectively. The binding constraint is the <span class='highlight-text'>system interface between humans and AI</span>. Enterprise AI lags consumer-facing frontier AI by <span class='highlight-text'>6–9 months</span> due to data security compliance and legacy system integration challenges, with some interfaces still dependent on manual intermediaries.">AI 本身的能力边界已经相当宽泛——大多数重复性知识工作均可有效处理。当前的制约，在于<span class="highlight-text">人与 AI 之间的系统接口</span>。企业级 AI 因数据安全合规与遗留系统集成的挑战，普遍落后于个人前沿 AI 能力 <span class="highlight-text">6–9 个月</span>，部分接口仍依赖人工中转。</p>
-        <p data-zh="一旦在数据安全保障前提下实现数据库接口的系统性打通，AI 能够带来的效率增益将呈非线性扩展：从常规的<span class='highlight-text'>数据分析与报表自动化</span>，到半导体研发领域的<span class='highlight-text'>工艺数据预测与优化步骤推荐</span>，均具备成熟的技术可行性。" data-en="Once database interfaces are systematically connected under data security guarantees, efficiency gains from AI will expand non-linearly: from routine <span class='highlight-text'>data analysis and report automation</span> to semiconductor R&D applications including <span class='highlight-text'>process data prediction and optimization step recommendations</span> — all with mature technical feasibility.">一旦在数据安全保障前提下实现数据库接口的系统性打通，AI 能够带来的效率增益将呈非线性扩展：从常规的<span class="highlight-text">数据分析与报表自动化</span>，到半导体研发领域的<span class="highlight-text">工艺数据预测与优化步骤推荐</span>，均具备成熟的技术可行性。</p>
-        <p data-zh="以当前 AI 能力基础做出判断：<span class='highlight-text'>1–2 年内可见显著落地成果</span>；即便面临较大的外部整合阻力，3 年内实现大规模部署的技术条件已经具备。窗口期有限，先发优势正在形成。" data-en="Based on current AI capability: <span class='highlight-text'>material deployment results are visible within 1–2 years</span>; even with significant external integration friction, the technical conditions for large-scale deployment within 3 years are already present. The window is finite; first-mover advantages are forming.">以当前 AI 能力基础做出判断：<span class="highlight-text">1–2 年内可见显著落地成果</span>；即便面临较大的外部整合阻力，3 年内实现大规模部署的技术条件已经具备。窗口期有限，先发优势正在形成。</p>
+    <div class="section-label" data-zh="03 — 行业分析" data-en="03 — Industry Analysis">03 — 行业分析</div>
+    <div class="section-title" data-zh="企业 AI 落地的结构性机遇与制约因素" data-en="Structural Opportunities and Constraints in Enterprise AI Deployment">企业 AI 落地的结构性机遇与制约因素</div>
+    <div class="analysis-cols">
+      <div class="analysis-text">
+        <h4 data-zh="当前格局：能力已足，整合滞后" data-en="Current Landscape: Capability Ready, Integration Lagging">当前格局：能力已足，整合滞后</h4>
+        <p data-zh="前沿 AI 模型在处理规则密集型任务、非结构化信息提炼与专业文书生成方面的能力已相当成熟。制约企业落地的核心因素，不再是技术能力，而是<span class='hl'>系统整合的缺失</span>——将 AI 嵌入现有业务数据流、遗留系统与安全合规框架的能力。" data-en="Frontier AI models have reached substantial maturity in rule-intensive task execution, unstructured information extraction, and professional document generation. The binding constraint on enterprise deployment is no longer technical capability, but the <span class='hl'>absence of system integration</span> — the ability to embed AI within existing business data flows, legacy systems, and security compliance frameworks.">前沿 AI 模型在处理规则密集型任务、非结构化信息提炼与专业文书生成方面的能力已相当成熟。制约企业落地的核心因素，不再是技术能力，而是<span class="hl">系统整合的缺失</span>——将 AI 嵌入现有业务数据流、遗留系统与安全合规框架的能力。</p>
+        <h4 data-zh="差距量化：6–9 个月的能力滞后" data-en="Gap Quantification: 6–9 Month Capability Lag">差距量化：6–9 个月的能力滞后</h4>
+        <p data-zh="企业部署的 AI 能力（受数据安全审批、遗留系统接口、采购周期约束）普遍比个人可访问的前沿模型能力滞后 <span class='hl'>6–9 个月</span>。这一滞后并非技术差距，而是<span class='hl'>组织与合规摩擦</span>的直接体现——部分接口仍依赖人工中转完成数据传递。" data-en="Enterprise-deployed AI capability (constrained by data security approvals, legacy system interfaces, and procurement cycles) consistently lags behind frontier models accessible to individuals by <span class='hl'>6–9 months</span>. This lag reflects not a technology gap, but <span class='hl'>organizational and compliance friction</span> — some interfaces still depend on manual intermediaries for data transfer.">企业部署的 AI 能力（受数据安全审批、遗留系统接口、采购周期约束）普遍比个人可访问的前沿模型能力滞后 <span class='hl'>6–9 个月</span>。这一滞后并非技术差距，而是<span class="hl">组织与合规摩擦</span>的直接体现——部分接口仍依赖人工中转完成数据传递。</p>
+        <h4 data-zh="突破性机遇：数据库接口打通后的非线性增益" data-en="Breakthrough Opportunity: Non-Linear Gains Post Database Integration">突破性机遇：数据库接口打通后的非线性增益</h4>
+        <p data-zh="一旦在数据安全保障前提下实现各业务系统的 API 接口打通，AI 效益将从「线性加速」跃升至<span class='hl'>「非线性扩展」</span>。以半导体研发场景为例：工艺数据实时分析、良率预测模型迭代、制程优化步骤推荐——这些能力的技术基础当前已完全具备，制约仅在于数据接入授权。" data-en="Once API interfaces across business systems are connected under data security guarantees, AI benefits will shift from 'linear acceleration' to <span class='hl'>'non-linear expansion.'</span> In semiconductor R&D contexts: real-time process data analysis, yield prediction model iteration, and process optimization recommendations — the technical foundation for all these capabilities is fully present today; the constraint is solely data access authorization.">一旦在数据安全保障前提下实现各业务系统的 API 接口打通，AI 效益将从「线性加速」跃升至<span class="hl">「非线性扩展」</span>。以半导体研发场景为例：工艺数据实时分析、良率预测模型迭代、制程优化步骤推荐——这些能力的技术基础当前已完全具备，制约仅在于数据接入授权。</p>
+        <h4 data-zh="时间窗口判断" data-en="Timing Assessment">时间窗口判断</h4>
+        <p data-zh="以当前 AI 模型能力基础做出判断：<span class='hl'>1–2 年内</span>可见企业级显著落地成果；即便面临较大组织整合阻力，<span class='hl'>3 年内</span>大规模部署的技术条件已经具备。先发优势正在形成——越早建立 AI 整合能力，越能在下一轮效率竞争中取得结构性领先。" data-en="Based on current AI model capability: material enterprise-scale results are visible <span class='hl'>within 1–2 years</span>; even under significant organizational integration resistance, the technical conditions for large-scale deployment are present <span class='hl'>within 3 years</span>. First-mover advantages are forming — the earlier an organization builds AI integration capability, the more structural advantage it will hold in the next efficiency competition cycle.">以当前 AI 模型能力基础做出判断：<span class="hl">1–2 年内</span>可见企业级显著落地成果；即便面临较大组织整合阻力，<span class="hl">3 年内</span>大规模部署的技术条件已经具备。先发优势正在形成——越早建立 AI 整合能力，越能在下一轮效率竞争中取得结构性领先。</p>
       </div>
-      <div class="analysis-sidebar">
-        <div class="sidebar-card">
-          <div class="sidebar-card-label" data-zh="核心瓶颈" data-en="Primary Constraint">核心瓶颈</div>
-          <div class="sidebar-card-num" data-zh="整合" data-en="Integration">整合</div>
-          <p data-zh="能力不是问题。将 AI 嵌入现有业务数据流与系统接口，是当前最关键的执行课题。" data-en="Capability is not the constraint. Embedding AI into existing business data flows and system interfaces is the critical execution challenge today.">能力不是问题。将 AI 嵌入现有业务数据流与系统接口，是当前最关键的执行课题。</p>
+      <div class="analysis-side">
+        <div class="side-card">
+          <div class="side-card-lbl" data-zh="核心制约" data-en="Binding Constraint">核心制约</div>
+          <div class="side-card-val" data-zh="整合" data-en="Integration">整合</div>
+          <p data-zh="能力已具备。将 AI 嵌入现有业务数据流与系统接口，是当前最关键的执行变量，而非技术研发投入。" data-en="Capability exists. Embedding AI into existing business data flows and system interfaces is the critical execution variable today — not R&D investment.">能力已具备。将 AI 嵌入现有业务数据流与系统接口，是当前最关键的执行变量，而非技术研发投入。</p>
         </div>
-        <div class="sidebar-card">
-          <div class="sidebar-card-label" data-zh="落地时间窗口" data-en="Deployment Window">落地时间窗口</div>
-          <div class="sidebar-card-num" data-zh="1–2年" data-en="1–2 yrs">1–2年</div>
-          <p data-zh="以现有 AI 能力判断的企业级显著落地周期，外部阻力最大情形不超过 3 年。" data-en="Estimated period to material enterprise deployment based on current AI capabilities. Maximum 3 years under significant external friction.">以现有 AI 能力判断的企业级显著落地周期，外部阻力最大情形不超过 3 年。</p>
+        <div class="side-card">
+          <div class="side-card-lbl" data-zh="能力滞后" data-en="Capability Lag">能力滞后</div>
+          <div class="side-card-val">6–9mo</div>
+          <p data-zh="企业部署能力落后于前沿模型的典型区间，主要由合规审批与遗留系统摩擦造成，非技术差距。" data-en="Typical range by which enterprise-deployed AI lags frontier models, primarily caused by compliance approval and legacy system friction — not a technology gap.">企业部署能力落后于前沿模型的典型区间，主要由合规审批与遗留系统摩擦造成，非技术差距。</p>
+        </div>
+        <div class="side-card">
+          <div class="side-card-lbl" data-zh="落地窗口" data-en="Deployment Window">落地窗口</div>
+          <div class="side-card-val" data-zh="1–2年" data-en="1–2yr">1–2年</div>
+          <p data-zh="以现有技术基础判断的企业级显著落地时间窗口。3 年为外部阻力最大情形的上限估计。" data-en="Estimated window for material enterprise deployment based on current technology. 3 years represents the upper bound estimate under maximum external resistance.">以现有技术基础判断的企业级显著落地时间窗口。3 年为外部阻力最大情形的上限估计。</p>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- TIMELINE -->
+  <!-- ENTERPRISE IMPLICATIONS -->
+  <div class="section" id="implications">
+    <div class="section-label" data-zh="04 — 企业建议" data-en="04 — Enterprise Implications">04 — 企业建议</div>
+    <div class="section-title" data-zh="三阶段落地路径与优先行动" data-en="Three-Phase Deployment Pathway and Priority Actions">三阶段落地路径与优先行动</div>
+    <div class="impl-grid">
+      <div class="impl-card">
+        <div class="impl-phase" data-zh="当前阶段 · 2025" data-en="Current Phase · 2025">当前阶段 · 2025</div>
+        <div class="impl-title" data-zh="个人效能建立：低成本高回报的起点" data-en="Individual Productivity: High-Return Starting Point">个人效能建立：低成本高回报的起点</div>
+        <div class="impl-body" data-zh="在无需系统集成的前提下，将 AI 工具引入合规审查、文书生成、信息整理等高频重复场景，建立组织内部的实践知识储备与使用规范。这是理解 AI 能力边界的必要前置步骤，也是后续规模化的认知基础。" data-en="Without requiring system integration, introduce AI tools into high-frequency repetitive scenarios: compliance review, document generation, information organization. Build internal practical knowledge and usage standards. This is the necessary prerequisite for understanding AI capability boundaries and the cognitive foundation for subsequent scaling.">在无需系统集成的前提下，将 AI 工具引入合规审查、文书生成、信息整理等高频重复场景，建立组织内部的实践知识储备与使用规范。这是理解 AI 能力边界的必要前置步骤，也是后续规模化的认知基础。</div>
+        <div><span class="impl-tag tag-now" data-zh="立即可行" data-en="Immediate">立即可行</span></div>
+      </div>
+      <div class="impl-card">
+        <div class="impl-phase" data-zh="近期机遇 · 2025–2026" data-en="Near-term Opportunity · 2025–2026">近期机遇 · 2025–2026</div>
+        <div class="impl-title" data-zh="流程嵌入：选择性打通高价值数据接口" data-en="Process Embedding: Selectively Connect High-Value Data Interfaces">流程嵌入：选择性打通高价值数据接口</div>
+        <div class="impl-body" data-zh="识别投资回报率最高的数据接口优先级（建议聚焦：研发数据分析、供应链异常检测、质量管控文档化），在满足安全合规前提下推进选择性接入。避免「全面整合」的高复杂度路径，优先实现可量化收益的单点突破。" data-en="Identify the highest ROI data interfaces to prioritize (recommended focus: R&D data analytics, supply chain anomaly detection, quality control documentation), pursue selective integration under security compliance constraints. Avoid the high-complexity 'comprehensive integration' approach; prioritize single-point breakthroughs with quantifiable returns.">识别投资回报率最高的数据接口优先级（建议聚焦：研发数据分析、供应链异常检测、质量管控文档化），在满足安全合规前提下推进选择性接入。避免「全面整合」的高复杂度路径，优先实现可量化收益的单点突破。</div>
+        <div><span class="impl-tag tag-soon" data-zh="规划阶段" data-en="Planning Phase">规划阶段</span></div>
+      </div>
+      <div class="impl-card">
+        <div class="impl-phase" data-zh="中期前景 · 2026–2028" data-en="Medium-term Horizon · 2026–2028">中期前景 · 2026–2028</div>
+        <div class="impl-title" data-zh="多智能体协作：执行层自动化规模化" data-en="Multi-Agent Collaboration: Execution-Layer Automation at Scale">多智能体协作：执行层自动化规模化</div>
+        <div class="impl-body" data-zh="多个 AI 智能体协同承担复杂业务流程的端到端执行，人力角色向监督、异常处理与最终决策转移。在半导体领域，这意味着制程数据的持续监控分析、良率预测预警、实验设计优化建议的系统化生成——均无需持续人力介入。" data-en="Multiple AI agents collaboratively handle end-to-end execution of complex business workflows; human roles shift to oversight, exception handling, and final decisions. In semiconductor contexts, this means continuous process data monitoring and analysis, yield prediction alerts, and systematic generation of experimental design optimization recommendations — all without continuous human intervention.">多个 AI 智能体协同承担复杂业务流程的端到端执行，人力角色向监督、异常处理与最终决策转移。在半导体领域，这意味着制程数据的持续监控分析、良率预测预警、实验设计优化建议的系统化生成——均无需持续人力介入。</div>
+        <div><span class="impl-tag tag-future" data-zh="前瞻布局" data-en="Forward Planning">前瞻布局</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RISK TABLE -->
   <div class="section">
-    <div class="sec-header">
-      <div class="sec-num" data-zh="04 — 展望" data-en="04 — Outlook">04 — 展望</div>
-      <div class="sec-title" data-zh="演进阶段判断" data-en="Phased Evolution Assessment">演进阶段判断</div>
-    </div>
-    <div class="timeline-h">
-      <div class="tl-phase">
-        <div class="tl-phase-label" data-zh="当前阶段 · 2025" data-en="Current Phase · 2025">当前阶段 · 2025</div>
-        <div class="tl-phase-title" data-zh="个人效能提升" data-en="Individual Productivity Enhancement">个人效能提升</div>
-        <div class="tl-phase-body" data-zh="AI 作为个人生产力工具，在合规、文书、信息处理等场景产生显著效益。主要依赖通用 AI 能力，无需深度系统集成。" data-en="AI as a personal productivity tool delivering measurable efficiency gains in compliance, documentation, and information processing. Primarily leverages general AI capability without deep system integration.">AI 作为个人生产力工具，在合规、文书、信息处理等场景产生显著效益。主要依赖通用 AI 能力，无需深度系统集成。</div>
-      </div>
-      <div class="tl-phase highlight">
-        <div class="tl-phase-label" data-zh="近期机遇 · 2025–2026" data-en="Near-term Opportunity · 2025–2026">近期机遇 · 2025–2026</div>
-        <div class="tl-phase-title" data-zh="业务流程嵌入" data-en="Business Process Embedding">业务流程嵌入</div>
-        <div class="tl-phase-body" data-zh="AI 与企业数据系统完成接口打通，实现数据分析、报表自动化、工艺优化建议等高频业务场景的规模化部署。" data-en="AI interfaces with enterprise data systems, enabling scaled deployment across high-frequency business scenarios: data analytics, automated reporting, and process optimization recommendations.">AI 与企业数据系统完成接口打通，实现数据分析、报表自动化、工艺优化建议等高频业务场景的规模化部署。</div>
-      </div>
-      <div class="tl-phase">
-        <div class="tl-phase-label" data-zh="中期前景 · 2026–2028" data-en="Medium-term Horizon · 2026–2028">中期前景 · 2026–2028</div>
-        <div class="tl-phase-title" data-zh="自主智能体协作" data-en="Autonomous Agent Collaboration">自主智能体协作</div>
-        <div class="tl-phase-body" data-zh="多 AI 智能体协同执行复杂业务流程，人主要承担监督与最终决策职能，执行层面实现大规模自动化。" data-en="Multiple AI agents collaborate to execute complex business workflows. Human roles shift to oversight and final decision-making, with execution-layer automation at scale.">多 AI 智能体协同执行复杂业务流程，人主要承担监督与最终决策职能，执行层面实现大规模自动化。</div>
-      </div>
-    </div>
+    <div class="section-label" data-zh="05 — 风险与制约" data-en="05 — Risks & Constraints">05 — 风险与制约</div>
+    <div class="section-title" data-zh="主要风险因素与缓释路径" data-en="Primary Risk Factors and Mitigation Pathways">主要风险因素与缓释路径</div>
+    <table class="risk-table">
+      <thead>
+        <tr>
+          <th data-zh="风险类型" data-en="Risk Category">风险类型</th>
+          <th data-zh="具体表现" data-en="Manifestation">具体表现</th>
+          <th data-zh="影响程度" data-en="Impact">影响程度</th>
+          <th data-zh="缓释路径" data-en="Mitigation">缓释路径</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-zh="数据安全与合规" data-en="Data Security & Compliance">数据安全与合规</td>
+          <td data-zh="敏感业务数据接入第三方 AI 服务的合规风险" data-en="Compliance risk from connecting sensitive business data to third-party AI services">敏感业务数据接入第三方 AI 服务的合规风险</td>
+          <td><span class="risk-pill risk-h" data-zh="高" data-en="High">高</span></td>
+          <td data-zh="私有部署模型；数据分级管控；接入审批机制" data-en="Private model deployment; tiered data governance; access approval mechanisms">私有部署模型；数据分级管控；接入审批机制</td>
+        </tr>
+        <tr>
+          <td data-zh="AI 输出准确性" data-en="AI Output Accuracy">AI 输出准确性</td>
+          <td data-zh="规则解析错误或信息提炼偏差导致决策失误" data-en="Decision errors from rule interpretation errors or information extraction bias">规则解析错误或信息提炼偏差导致决策失误</td>
+          <td><span class="risk-pill risk-m" data-zh="中" data-en="Medium">中</span></td>
+          <td data-zh="人工审核流程保留；输出可溯源设计；人类决策权保留" data-en="Maintain human review process; traceable output design; retain human decision authority">人工审核流程保留；输出可溯源设计；人类决策权保留</td>
+        </tr>
+        <tr>
+          <td data-zh="组织能力建设滞后" data-en="Organizational Capability Lag">组织能力建设滞后</td>
+          <td data-zh="员工 AI 使用能力参差不齐导致落地效果分化" data-en="Uneven employee AI proficiency causing bifurcated deployment outcomes">员工 AI 使用能力参差不齐导致落地效果分化</td>
+          <td><span class="risk-pill risk-m" data-zh="中" data-en="Medium">中</span></td>
+          <td data-zh="系统性培训计划；内部实践社区；效果量化评估机制" data-en="Systematic training programs; internal practice communities; quantified outcome evaluation">系统性培训计划；内部实践社区；效果量化评估机制</td>
+        </tr>
+        <tr>
+          <td data-zh="技术依赖集中" data-en="Technology Dependency Concentration">技术依赖集中</td>
+          <td data-zh="单一 AI 供应商依赖带来的服务中断与议价能力风险" data-en="Service disruption and bargaining power risks from single AI vendor dependency">单一 AI 供应商依赖带来的服务中断与议价能力风险</td>
+          <td><span class="risk-pill risk-l" data-zh="低-中" data-en="Low-Med">低-中</span></td>
+          <td data-zh="多供应商策略；API 抽象层设计；关键流程备份机制" data-en="Multi-vendor strategy; API abstraction layer design; critical process backup mechanisms">多供应商策略；API 抽象层设计；关键流程备份机制</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
-</div><!-- end page-body -->
+</div>
 
 <footer>
-  <span data-zh="持续更新 · 基于第一线实践 · 半导体 / 科技行业" data-en="Continuously Updated · Based on Direct Practice · Semiconductor / Technology Sector">持续更新 · 基于第一线实践 · 半导体 / 科技行业</span>
+  <span class="footer-note" data-zh="本文基于个人第一线实践记录，供参考使用，不构成专业建议。持续更新中。" data-en="This briefing is based on personal first-hand practice records for reference purposes only and does not constitute professional advice. Continuously updated.">本文基于个人第一线实践记录，供参考使用，不构成专业建议。持续更新中。</span>
+  <span data-zh="半导体 / 科技行业视角 · 2025–2026" data-en="Semiconductor / Technology Sector Perspective · 2025–2026">半导体 / 科技行业视角 · 2025–2026</span>
 </footer>
 
 <script>
   let currentLang = 'zh';
-
   function toggleLang() {
     currentLang = currentLang === 'zh' ? 'en' : 'zh';
     document.querySelectorAll('[data-zh]').forEach(el => {
-      const text = el.getAttribute('data-' + currentLang);
-      if (text) el.innerHTML = text;
+      const t = el.getAttribute('data-' + currentLang);
+      if (t) el.innerHTML = t;
     });
     document.querySelector('.lang-btn').textContent = currentLang === 'zh' ? 'EN' : '中文';
     document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : 'en';
   }
-
   function toggleCase(header) {
-    const body = header.parentElement.querySelector('.case-body');
+    const body = header.parentElement.querySelector('.case-detail');
     const isOpen = header.classList.contains('open');
-    // close all
-    document.querySelectorAll('.case-header').forEach(h => h.classList.remove('open'));
-    document.querySelectorAll('.case-body').forEach(b => b.classList.remove('show'));
-    // open clicked if not already open
-    if (!isOpen) {
-      header.classList.add('open');
-      body.classList.add('show');
-    }
+    document.querySelectorAll('.case-top').forEach(h => h.classList.remove('open'));
+    document.querySelectorAll('.case-detail').forEach(b => b.classList.remove('show'));
+    if (!isOpen) { header.classList.add('open'); body.classList.add('show'); }
   }
 </script>
 </body>
